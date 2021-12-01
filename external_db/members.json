@@ -1,0 +1,28 @@
+{
+    "members": [
+        {
+            "first_name": "Jason",
+            "last_name": "Jayson",
+            "membership_number": 1111,
+            "isStaff": true 
+        },
+        {
+            "first_name": "Mike",
+            "last_name": "Michaels",
+            "membership_number": 2222,
+            "isStaff": true 
+        },
+        {
+            "first_name": "James",
+            "last_name": "Jameson",
+            "membership_number": 3333,
+            "isStaff": false 
+        },
+        {
+            "first_name": "Jillian",
+            "last_name": "Jills",
+            "membership_number": 4444,
+            "isStaff": false 
+        }
+    ]
+}
