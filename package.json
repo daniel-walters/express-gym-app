@@ -1,0 +1,20 @@
+{
+  "name": "express-gym-app",
+  "version": "1.0.0",
+  "description": "By June D, Daniel W, Nam N and Clare O",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-walters/express-gym-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniel-walters/express-gym-app/issues"
+  },
+  "homepage": "https://github.com/daniel-walters/express-gym-app#readme"
+}
