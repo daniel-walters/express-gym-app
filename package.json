@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/daniel-walters/express-gym-app/issues"
   },
-  "homepage": "https://github.com/daniel-walters/express-gym-app#readme"
+  "homepage": "https://github.com/daniel-walters/express-gym-app#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
