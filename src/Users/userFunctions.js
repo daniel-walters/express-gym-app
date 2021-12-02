@@ -1,16 +1,17 @@
 import firebaseAdmin from 'firebase-admin';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { checkIfUserIsAMember } from './userServices.js';
 
 export function initializeAppClient() {
     initializeApp(JSON.parse(process.env.FIREBASE_CLIENT_CONFIG));
 }
 
 export async function signUpUser(userDetails) {
+    const { email, password } = userDetails;
+
     return firebaseAdmin.auth().createUser({
-        email: userDetails.email,
-        password: userDetails.password,
+        email,
+        password,
         emailVerified: true
     }).then(async (userRecord) => {
         let defaultUserClaims = firebaseAdmin.auth().setCustomUserClaims(
