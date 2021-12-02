@@ -5,10 +5,7 @@ dotenv.config();
 //import express and create app
 import express from 'express';
 
-const app = express();
-
-const PORT = process.env.PORT || 3000;
-const HOST = "0.0.0.0";
+export const app = express();
 
 //import initializeApp and initialize with admin credentials
 import firebaseAdmin from 'firebase-admin';
@@ -26,14 +23,9 @@ app.use(express.urlencoded({extended: true}));
 
 //default route setup
 app.get('/', (request, response) => {
-    response.json({placeholder: "Express Gym App"});
+    response.status(200).json({placeholder: "Express Gym App"});
 });
 
 //import and use user routes
 import userRoutes from './Users/userRoutes.js';
 app.use('/users', userRoutes);
-
-//start server
-app.listen(PORT, HOST, () => {
-    console.log(`Server running on port ${PORT}`);
-});

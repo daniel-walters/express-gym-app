@@ -4,8 +4,8 @@
   "description": "By June D, Daniel W, Nam N and Clare O",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
     "test": "jest"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "mongoose": "^6.0.14"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.4.2",
     "jest": "^27.4.2",
