@@ -8,6 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = "0.0.0.0";
 
+import firebaseAdmin from 'firebase-admin';
+firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS))
+});
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
