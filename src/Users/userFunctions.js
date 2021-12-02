@@ -1,6 +1,7 @@
 import firebaseAdmin from 'firebase-admin';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { checkIfUserIsAMember } from './userServices.js';
 
 export function initializeAppClient() {
     initializeApp(JSON.parse(process.env.FIREBASE_CLIENT_CONFIG));

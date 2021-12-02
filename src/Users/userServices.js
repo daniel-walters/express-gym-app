@@ -1,12 +1,15 @@
-import members from '../../external_db/members.json';
+import externalMembers from '../../external_db/members.js'
 
-//Returns member object with {membership_number, isStaff} if member exists in external db. 
-//Otherwise returns null
-export function checkIfUserIsAMember(membership_number) {
-    const { members: externalMembers } = members;
+/**
+ * checkIfUserIsAMember
+ * @param membershipNumber The membership number entered in the sign up form
+ * * Returns Object with 2 properties: isMember, isStaff
+ * * isStaff will be null if isMember is false
+ */
+export function checkIfUserIsAMember(membershipNumber) {
     const member = externalMembers.find((member) => {
-        const { membership_number: extMemNum } = member;
-        return (extMemNum === membership_number);
+        const { membershipNumber: extMemNum } = member;
+        return (extMemNum === membershipNumber);
     });
 
     return {
