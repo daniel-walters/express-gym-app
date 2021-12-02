@@ -16,6 +16,10 @@ firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS))
 });
 
+//import initializeAppClient and run function
+import { initializeAppClient } from './Users/userFunctions.js';
+initializeAppClient();
+
 //set server to receieve json and form-data
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

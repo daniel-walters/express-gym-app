@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUpUser } from './userFunctions.js';
+import { signUpUser, signInUser } from './userFunctions.js';
 
 const routes = express.Router();
 
@@ -19,7 +19,15 @@ routes.post('/sign-up', async (request, response) => {
         return;
     }
 
-    response.json(signUpResult);
+    const signInResult = await signInUser(newUserDetails);
+
+    if (signInResult.error) {
+        console.log("Sign up failed, returning error to requester");
+        response.json(signUpResult);
+        return;
+    }
+
+    response.json(signInResult);
 });
 
 export default routes;
