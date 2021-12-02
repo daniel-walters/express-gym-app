@@ -30,10 +30,10 @@ routes.post('/sign-up', async (request, response) => {
             return;
         }
 
-        response.json(signInResult);
+        response.status(201).json(signInResult);
     }
     else {
-        response.json({error: "Cannot find membership number in database"});
+        response.status(401).json({error: "Cannot find membership number in database"});
     }
 });
 
@@ -48,12 +48,12 @@ routes.post('/sign-in', async (request, response) => {
     const signInResult = await signInUser(existingUserDetails);
 
     if (signInResult.error) {
-        console.log("Sign up failed, returning error to requester");
-        response.json(signInResult);
+        console.log("Sign in failed, returning error to requester");
+        response.status(401).json(signInResult);
         return;
     }
 
-    response.json(signInResult);
+    response.status(200).json(signInResult);
 });
 
 export default routes;

@@ -52,3 +52,13 @@ export async function signInUser(userDetails) {
 
     return signInResult;
 }
+
+export async function deleteUser(uid) {
+    return firebaseAdmin.auth().deleteUser(uid)
+        .then(() => {
+            console.log("user deleted");
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

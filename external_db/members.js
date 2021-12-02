@@ -22,6 +22,12 @@ const members = [
         lastName: "Jills",
         membershipNumber: 4444,
         isStaff: false
+    },
+    {
+        firstName: "Test",
+        lastName: "User",
+        membershipNumber: 1234,
+        isStaff: false
     }
 ]
 
