@@ -4,11 +4,12 @@ import { signUpUser, signInUser } from './userFunctions.js';
 const routes = express.Router();
 
 routes.post('/sign-up', async (request, response) => {
-    const {email, password} = request.body;
+    const {email, password, membership_id} = request.body;
 
     const newUserDetails = {
-        email: email,
-        password: password
+        email,
+        password,
+        membership_id
     };
 
     const signUpResult = await signUpUser(newUserDetails);
