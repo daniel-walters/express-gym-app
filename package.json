@@ -30,7 +30,8 @@
     "@babel/preset-env": "^7.16.4",
     "babel-jest": "^27.4.2",
     "jest": "^27.4.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "supertest": "^6.1.6"
   },
   "type": "module"
 }
