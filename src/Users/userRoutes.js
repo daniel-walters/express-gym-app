@@ -22,8 +22,27 @@ routes.post('/sign-up', async (request, response) => {
     const signInResult = await signInUser(newUserDetails);
 
     if (signInResult.error) {
+        console.log("Sign in failed, returning error to requester");
+        response.json(signInResult);
+        return;
+    }
+
+    response.json(signInResult);
+});
+
+routes.post('/sign-in', async (request, response) => {
+    const {email, password} = request.body;
+
+    const existingUserDetails = {
+        email: email,
+        password: password
+    };
+
+    const signInResult = await signInUser(existingUserDetails);
+
+    if (signInResult.error) {
         console.log("Sign up failed, returning error to requester");
-        response.json(signUpResult);
+        response.json(signInResult);
         return;
     }
 
