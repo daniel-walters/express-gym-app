@@ -16,7 +16,6 @@ export function checkIfUserIsAMember(request, response, next) {
     if (member) {
         next();
     } else {
-        console.log("Member not found in external db");
         response.status(401).json({error: "Cannot find membership number in our database"});
     }
 }
@@ -32,7 +31,6 @@ export function checkPasswordConfirmation(request, response, next) {
     if (password === passwordConfirm) {
         next();
     } else {
-        console.log("Passwords do not match");
         response.status(401).json({error: "Passwords need to be the same"});
     }
 }
@@ -50,7 +48,6 @@ export function validatePasswordSecurity(request, response, next) {
     if (matcher.test(password)) {
         next();
     } else {
-        console.log("Passwords do not match");
         response.status(401).json({error: "Password must contain at least one lowercase letter, uppercase letter, number, and must not contain any special characters"});
     }
 }
