@@ -17,3 +17,7 @@ export function checkIfUserIsAMember(membershipNumber) {
         isStaff: member ? member.isStaff : null
     }
 }
+
+export function checkPasswordConfirmation(password, passwordConfirm) {
+    
+}

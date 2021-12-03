@@ -1,4 +1,4 @@
-import { checkIfUserIsAMember } from "../../src/Users/userServices.js";
+import { checkIfUserIsAMember, checkPasswordConfirmation } from "../../src/Users/userServices.js";
 
 describe('checkIfUserIsAMember', () => {
     test('Returns an object', () => {
@@ -27,5 +27,15 @@ describe('checkIfUserIsAMember', () => {
             expect(memberInfo.isMember).toEqual(false);
             expect(memberInfo.isStaff).toBeNull();
         });
+    });
+});
+
+describe('checkPasswordConfirmation', () => {
+    test('returns true if passwords match', () => {
+        expect(checkPasswordConfirmation("apPles1", "apPles1")).toEqual(true);
+    });
+    
+    test('returns false if passwords dont match', () => {
+        expect(checkPasswordConfirmation("apPles1", "apPles2")).toEqual(false);
     });
 });
