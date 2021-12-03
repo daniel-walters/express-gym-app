@@ -18,10 +18,24 @@ export function checkIfUserIsAMember(membershipNumber) {
     }
 }
 
+/**
+ * checkPasswordConfirmation
+ * @param password what the user sends in 'password' field
+ * @param passwordConfirm what the user sends in 'password confirmation' field
+ * * Returns true or false depending on if passwords are equal
+ */
 export function checkPasswordConfirmation(password, passwordConfirm) {
     return password === passwordConfirm;
 }
 
+/**
+ * validatePasswordSecurity
+ * @param password what the user sends in 'password' field
+ * * Returns true or false depending on if password matches the regex
+ * ? Secure enough or add special character enforcement? 
+ */
 export function validatePasswordSecurity(password) {
-    
+    const matcher = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/g;
+
+    return matcher.test(password);
 }

@@ -60,4 +60,8 @@ describe('validatePasswordSecurity', () => {
     test ('returns false if password has no numbers', () => {
         expect(validatePasswordSecurity("password")).toEqual(false);
     });
+
+    test ('returns false if special characters are included', () => {
+        expect(validatePasswordSecurity("passWord1%")).toEqual(false);
+    });
 });
