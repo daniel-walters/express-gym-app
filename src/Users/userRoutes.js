@@ -1,10 +1,11 @@
 import express from 'express';
 import { signUpUser, signInUser } from './userFunctions.js';
-import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userServices.js';
+import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
 
 const routes = express.Router();
+const signUpValidations = [checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation];
 
-routes.post('/sign-up', async (request, response) => {
+routes.post('/sign-up', signUpValidations, async (request, response) => {
     const {email, password, passwordConfirm, membershipNumber} = request.body;
 
     const newUserDetails = {
@@ -14,31 +15,23 @@ routes.post('/sign-up', async (request, response) => {
         membershipNumber
     };
     
-    if (checkIfUserIsAMember(membershipNumber).isMember &&
-        checkPasswordConfirmation(password, passwordConfirm) &&
-        validatePasswordSecurity(password)
-        ){
-        const signUpResult = await signUpUser(newUserDetails);
+    const signUpResult = await signUpUser(newUserDetails);
 
-        if (signUpResult.error) {
-            console.log("Sign up failed, returning error to requester");
-            response.json(signUpResult);
-            return;
-        }
-
-        const signInResult = await signInUser(newUserDetails);
-
-        if (signInResult.error) {
-            console.log("Sign in failed, returning error to requester");
-            response.json(signInResult);
-            return;
-        }
-
-        response.status(201).json(signInResult);
+    if (signUpResult.error) {
+        console.log("Sign up failed, returning error to requester");
+        response.json(signUpResult);
+        return;
     }
-    else {
-        response.status(401).json({error: "Cannot find membership number in database"});
+
+    const signInResult = await signInUser(newUserDetails);
+
+    if (signInResult.error) {
+        console.log("Sign in failed, returning error to requester");
+        response.json(signInResult);
+        return;
     }
+
+    response.status(201).json(signInResult);
 });
 
 routes.post('/sign-in', async (request, response) => {

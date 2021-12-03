@@ -1,4 +1,4 @@
-import { checkIfUserIsAMember, checkPasswordConfirmation, validatePasswordSecurity } from "../../src/Users/userServices.js";
+import { checkIfUserIsAMember, checkPasswordConfirmation, validatePasswordSecurity } from "../../src/Users/userMiddleware.js";
 
 describe('checkIfUserIsAMember', () => {
     test('Returns an object', () => {
