@@ -1,19 +1,23 @@
 import express from 'express';
 import { signUpUser, signInUser } from './userFunctions.js';
-import { checkIfUserIsAMember } from './userServices.js';
+import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userServices.js';
 
 const routes = express.Router();
 
 routes.post('/sign-up', async (request, response) => {
-    const {email, password, membershipNumber} = request.body;
+    const {email, password, passwordConfirm, membershipNumber} = request.body;
 
     const newUserDetails = {
         email,
         password,
+        passwordConfirm,
         membershipNumber
     };
     
-    if (checkIfUserIsAMember(membershipNumber).isMember) {
+    if (checkIfUserIsAMember(membershipNumber).isMember &&
+        checkPasswordConfirmation(password, passwordConfirm) &&
+        validatePasswordSecurity(password)
+        ){
         const signUpResult = await signUpUser(newUserDetails);
 
         if (signUpResult.error) {
