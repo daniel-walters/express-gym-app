@@ -21,3 +21,7 @@ export function checkIfUserIsAMember(membershipNumber) {
 export function checkPasswordConfirmation(password, passwordConfirm) {
     return password === passwordConfirm;
 }
+
+export function validatePasswordSecurity(password) {
+    
+}

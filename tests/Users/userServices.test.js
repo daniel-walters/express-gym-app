@@ -1,4 +1,4 @@
-import { checkIfUserIsAMember, checkPasswordConfirmation } from "../../src/Users/userServices.js";
+import { checkIfUserIsAMember, checkPasswordConfirmation, validatePasswordSecurity } from "../../src/Users/userServices.js";
 
 describe('checkIfUserIsAMember', () => {
     test('Returns an object', () => {
@@ -37,5 +37,27 @@ describe('checkPasswordConfirmation', () => {
     
     test('returns false if passwords dont match', () => {
         expect(checkPasswordConfirmation("apPles1", "apPles2")).toEqual(false);
+    });
+});
+
+describe('validatePasswordSecurity', () => {
+    test('returns true if password has at least 1 uppercase, 1 lowercase, 1 number, and length >= 8', () => {
+        expect(validatePasswordSecurity("passWord1")).toEqual(true);
+    });
+
+    test ('returns false if password less than 8 characters', () => {
+        expect(validatePasswordSecurity("passWo1")).toEqual(false);
+    });
+
+    test ('returns false if password has no lowercase letters', () => {
+        expect(validatePasswordSecurity("PASSWORD1")).toEqual(false);
+    });
+
+    test ('returns false if password has no uppercase letters', () => {
+        expect(validatePasswordSecurity("password1")).toEqual(false);
+    });
+
+    test ('returns false if password has no numbers', () => {
+        expect(validatePasswordSecurity("password")).toEqual(false);
     });
 });
