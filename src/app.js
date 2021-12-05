@@ -35,5 +35,5 @@ import workoutRoutes from './Workouts/workoutRoutes.js';
 app.use('/workouts', workoutRoutes);
 
 //import and use exercise routes
-import exerciseRoutes from './Exercise/exerciseRoutes.js';
+import exerciseRoutes from './Exercises/exerciseRoutes.js';
 app.use('/exercises', exerciseRoutes);

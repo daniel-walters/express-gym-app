@@ -1,6 +1,7 @@
 import express from 'express';
 import Workout from '../db/models/workout.js'
-// import { getWorkout } from './workoutFunctions.js';  AHHHHH WHY THE MODULE CAN'T BE FOUND ????
+// ISSUE:  THE MODULE CAN'T BE FOUND AHHHHH 
+// import { getWorkout } from './workoutFunctions.js';  
 
 
 const routes = express.Router();
@@ -26,16 +27,15 @@ routes.get('/:id',  async (req, res) => {
 routes.post('/', async(req, res) => {
     try {
         const workout = await Workout.create(req.body)
-        // console.log(req.body)
         res.status(201).json(workout)
     }catch(err){
         res.status(422).json({message: err.message});
     }
 })
 
-routes.patch('/:id', async (req, res) => {
+routes.put('/:id', async (req, res) => {
     try {
-      const workout = await Workout.findByIdAndUpdate(req.params.id, req.body);
+      const workout = await Workout.findByIdAndUpdate(req.params.id, req.body, { new: true });
       res.status(200).json(workout);
     } catch (err) {
       res.status(422).json({message: err.message});
@@ -55,7 +55,6 @@ async function getWorkout(req, res, next){
     let workout
     try{
         workout = await Workout.findById({ _id: req.params.id });
-        // console.log(req.params.id)
         if (workout == null) return res.status(404).json({ message: "Cannot find workout" })
     }catch(err){
         return res.status(500).json({message: err.message})

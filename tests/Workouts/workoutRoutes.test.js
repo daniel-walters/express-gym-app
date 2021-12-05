@@ -71,7 +71,7 @@ describe("Workouts Routes", () => {
   });
 
   // test for post /workouts
-  test("workout /workouts -> should respond with statusCode 201 and add new workout with correct sets, reps and weight value", async () => {
+  test("POST/workouts -> should respond with statusCode 201 and add new workout with correct sets, reps and weight value", async () => {
     const workout = {
       exercises: [
         {
@@ -84,7 +84,7 @@ describe("Workouts Routes", () => {
       ],
     };
 
-    console.log(workout);
+    // console.log(workout);
 
     await request(app)
       .post("/workouts")
@@ -92,10 +92,10 @@ describe("Workouts Routes", () => {
       .expect(201)
       .then(async (response) => {
         // Check the response
-        console.log(response.body);
+        // console.log(response.body);
         expect(response.body._id).toBeTruthy();
 
-        // return workout.sets undefined ???? TODO: HOW TO CHECK NESTED DATA ????
+        // return workout.sets undefined ???? ISSUE: HOW TO CHECK NESTED DATA ????
 
         //   expect(response.body.sets).toBe(workout.sets)
         //   expect(response.body.reps).toBe(workout.reps)
@@ -113,7 +113,7 @@ describe("Workouts Routes", () => {
   });
 
   // test for put /workouts:id
-  test("PATCH /workouts/:id -> should respond with statusCode 200 and update workout with correct sets, reps and weight value", async () => {
+  test("PUT /workouts/:id -> should respond with statusCode 200 and update workout with correct sets, reps and weight value", async () => {
     const workout = await Workout.create({
         exercises: [
           {
@@ -140,7 +140,7 @@ describe("Workouts Routes", () => {
     id = workout._id;
 
 	await request(app)
-		.patch("/workouts/" + workout.id)
+		.put("/workouts/" + workout.id)
 		.send(data)
 		.expect(200)
 		.then(async (response) => {
