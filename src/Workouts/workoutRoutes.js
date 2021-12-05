@@ -1,6 +1,6 @@
 import express from 'express';
 import Workout from '../db/models/workout.js'
-// ISSUE:  THE MODULE CAN'T BE FOUND AHHHHH 
+// ISSUE:  AHHHHH ERROR: MODULE CAN'T BE FOUND 
 // import { getWorkout } from './workoutFunctions.js';  
 
 
@@ -33,6 +33,7 @@ routes.post('/', async(req, res) => {
     }
 })
 
+// ISSUE:  everytime to change a nested value(i.e sets/reps number), the whole workout list has to be updated => NEED A BETTER SOLUTION
 routes.put('/:id', async (req, res) => {
     try {
       const workout = await Workout.findByIdAndUpdate(req.params.id, req.body, { new: true });

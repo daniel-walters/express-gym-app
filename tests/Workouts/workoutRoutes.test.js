@@ -19,7 +19,7 @@ describe("Workouts Routes", () => {
           sets: 4,
           reps: 20,
           weight: 40,
-          distance: null
+          distance: null,
         },
       ],
     });
@@ -39,7 +39,9 @@ describe("Workouts Routes", () => {
         expect(response.body[workouts.length - 1].sets).toBe(workout.sets);
         expect(response.body[workouts.length - 1].reps).toBe(workout.reps);
         expect(response.body[workouts.length - 1].weight).toBe(workout.weight);
-        expect(response.body[workouts.length - 1].distance).toBe(workout.distance);
+        expect(response.body[workouts.length - 1].distance).toBe(
+          workout.distance
+        );
       });
   });
 
@@ -52,7 +54,7 @@ describe("Workouts Routes", () => {
           sets: 3,
           reps: 12,
           weight: 100,
-          distance: null
+          distance: null,
         },
       ],
     });
@@ -79,7 +81,7 @@ describe("Workouts Routes", () => {
           sets: 5,
           reps: 25,
           weight: 70,
-          distance: null
+          distance: null,
         },
       ],
     };
@@ -92,74 +94,69 @@ describe("Workouts Routes", () => {
       .expect(201)
       .then(async (response) => {
         // Check the response
-        // console.log(response.body);
+        const workout = await Workout.findOne({ _id: response.body._id });
         expect(response.body._id).toBeTruthy();
-
-        // return workout.sets undefined ???? ISSUE: HOW TO CHECK NESTED DATA ????
-
-        //   expect(response.body.sets).toBe(workout.sets)
-        //   expect(response.body.reps).toBe(workout.reps)
-        //   expect(response.body.weight).toBe(workout.weight)
+        expect(response.body.sets).toBe(workout.sets);
+        expect(response.body.reps).toBe(workout.reps);
+        expect(response.body.weight).toBe(workout.weight);
         id = response.body._id;
 
         // Check the data in the database
-        const workout = await Workout.findOne({ _id: response.body._id });
         expect(workout).toBeTruthy();
-        // TODO: HOW TO CHECK NESTED DATA ????
-        //   expect(body.sets).toBe(workout.sets)
-        //   expect(body.reps).toBe(workout.reps)
-        //   expect(body.weight).toBe(workout.weight)
+        expect(response.body.sets).toBe(workout.sets);
+        expect(response.body.reps).toBe(workout.reps);
+        expect(response.body.weight).toBe(workout.weight);
       });
   });
 
   // test for put /workouts:id
   test("PUT /workouts/:id -> should respond with statusCode 200 and update workout with correct sets, reps and weight value", async () => {
     const workout = await Workout.create({
-        exercises: [
-          {
-            exercise_id: "6188d363ee05ab76027e44cc",
-            sets: 4,
-            reps: 15,
-            weight: 100,
-            distance: null
-          },
-        ],
-      });
+      exercises: [
+        {
+          exercise_id: "6188d363ee05ab76027e44cc",
+          sets: 4,
+          reps: 15,
+          weight: 100,
+          distance: null,
+        },
+      ],
+    });
 
-	const data = {
-		exercises: [
-            {
-              sets: 3,
-              reps: 15,
-              weight: 120,
-              distance: null
-            },
-          ],
-	}
+    const data = {
+      exercises: [
+        {
+          sets: 3,
+          reps: 15,
+          weight: 120,
+          distance: null,
+        },
+      ],
+    };
 
     id = workout._id;
 
-	await request(app)
-		.put("/workouts/" + workout.id)
-		.send(data)
-		.expect(200)
-		.then(async (response) => {
-			// Check the response
-			expect(response.body._id).toBe(workout.id)
-			expect(response.body.sets).toBe(data.sets)
-			expect(response.body.reps).toBe(data.reps)
-            expect(response.body.weight).toBe(data.weight)
-            expect(response.body.distance).toBe(data.distance)
+    await request(app)
+      .put("/workouts/" + workout.id)
+      .send(data)
+      .expect(200)
+      .then(async (response) => {
+        // Check the response
+        expect(response.body._id).toBe(workout.id);
+        expect(response.body.sets).toBe(data.sets);
+        expect(response.body.reps).toBe(data.reps);
+        expect(response.body.weight).toBe(data.weight);
+        expect(response.body.distance).toBe(data.distance);
 
-			// Check the data in the database
-			const newWorkout = await Workout.findOne({ _id: response.body._id })
-			expect(newWorkout).toBeTruthy()
-			expect(newWorkout.sets).toBe(data.sets)
-			expect(newWorkout.reps).toBe(data.reps)
-            expect(newWorkout.weight).toBe(data.weight)
-            expect(newWorkout.distance).toBe(data.distance)
-		})
-  })
+        // Check the data in the database
+        const newWorkout = await Workout.findOne({ _id: response.body._id });
+        expect(newWorkout).toBeTruthy();
+        expect(newWorkout.sets).toBe(data.sets);
+        expect(newWorkout.reps).toBe(data.reps);
+        expect(newWorkout.weight).toBe(data.weight);
+        expect(newWorkout.distance).toBe(data.distance);
+      });
+  });
 
   // test for delete /workouts/:id
   test("DELETE /workouts/:id", async () => {
@@ -170,7 +167,7 @@ describe("Workouts Routes", () => {
           sets: 4,
           reps: 12,
           weight: 100,
-          distance: null
+          distance: null,
         },
       ],
     });
