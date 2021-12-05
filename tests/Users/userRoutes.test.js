@@ -38,12 +38,12 @@ describe('POST /sign-in', () => {
     })
 
     test('should respond with statusCode 200 and log in when given valid credentials', async () => {  
-        newUser = await signUpUser({email: "testUser@test.com", password: "qwerty"});
+        newUser = await signUpUser({email: "testUser@test.com", password: "passWord1", passwordConfirm: "passWord1", membershipNumber: 1234});
         uid = newUser.uid;
 
         response = await request(app).post('/users/sign-in').send({
             email: "testUser@test.com",
-            password: "qwerty"
+            password: "passWord1"
         });
 
         expect(response.statusCode).toBe(200);
@@ -51,7 +51,7 @@ describe('POST /sign-in', () => {
     });
 
     test('should respond with status code 401 and error when given invalid credentials', async () => {
-        newUser = await signUpUser({email: "testUser@test.com", password: "qwerty"});
+        newUser = await signUpUser({email: "testUser@test.com", password: "passWord1", passwordConfirm: "passWord1", membershipNumber: 1234});
         uid = newUser.uid;
 
         response = await request(app).post('/users/sign-in').send({
