@@ -1,11 +1,6 @@
+import externalMembers from '../../external_db/members.js'
 
-async function generateProfile(user_id, profileDetails) {
-    // profileDetails = {
-    //     firstName,
-    //     lastName, 
-    //     isStaff,
-    //     weight,
-    //     (default) workouts: [],
-    //     (default) events: []
-    // }
+export const checkIfUserIsAStaff = (number) => {
+    const member = externalMembers.find(existingMember => existingMember.membershipNumber === number);
+    return member.isStaff
 }

@@ -1,4 +1,4 @@
-const members = [
+const externalMembers = [
     {
         firstName: "Jason",
         lastName: "Jayson",
@@ -28,7 +28,13 @@ const members = [
         lastName: "User",
         membershipNumber: 1234,
         isStaff: false
+    },
+    {
+        firstName: "Test2",
+        lastName: "User",
+        membershipNumber: 5678,
+        isStaff: false
     }
 ]
 
-export default members;
+export default externalMembers;

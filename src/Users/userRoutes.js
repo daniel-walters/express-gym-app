@@ -1,12 +1,14 @@
 import express from 'express';
 import { signUpUser, signInUser } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
+import Profile from '../db/models/profileSchema';
+import { checkIfUserIsAStaff } from './profileFunctions.js';
 
 const routes = express.Router();
 const signUpValidations = [checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation];
 
 routes.post('/sign-up', signUpValidations, async (request, response) => {
-    const {email, password, passwordConfirm, membershipNumber} = request.body;
+    const {email, password, passwordConfirm, membershipNumber, firstName, lastName} = request.body;
 
     const newUserDetails = {
         email,
@@ -23,7 +25,6 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
         return;
     }
 
-
     const signInResult = await signInUser(newUserDetails);
 
     if (signInResult.error) {
@@ -32,6 +33,18 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
         return;
     }
 
+    // after firebase registration is complete, create a profile using user uid: CLARE
+    const isStaff = checkIfUserIsAStaff(parseInt(membershipNumber));
+    const {userId} = signInResult;
+    const profileDetails = {
+        userId: userId,
+        firstName: request.body.firstName,
+        lastName: request.body.lastName,
+        isStaff: isStaff
+    }
+    const profile = await Profile.create(profileDetails);
+
+    // response includes firebase return info. no profile.
     response.status(201).json(signInResult);
 });
 

@@ -16,7 +16,9 @@ describe('POST /sign-up', () => {
                 email: "testUser@test.com",
                 password: "passWord1",
                 passwordConfirm: "passWord1",
-                membershipNumber: 1234
+                membershipNumber: 1234,
+                firstName: "Test",
+                lastName: "User"
             });
             uid = response.body.uid;
         });
