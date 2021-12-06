@@ -1,6 +1,7 @@
 import { app } from '../../src/app.js';
 import request from 'supertest';
 import { deleteUser, signUpUser } from '../../src/Users/userFunctions.js'
+import Profile from '../../src/db/models/profileSchema.js';
 
 describe('POST /sign-up', () => {
     let response;
@@ -8,6 +9,7 @@ describe('POST /sign-up', () => {
 
     afterEach(async () => {
         await deleteUser(uid);
+        await Profile.deleteOne({userId: uid})
     });
 
     describe('For a gym member', () => {
@@ -37,6 +39,7 @@ describe('POST /sign-in', () => {
 
     afterEach(async () => {
         await deleteUser(uid);
+        await Profile.deleteOne({userId: uid})
     })
 
     test('should respond with statusCode 200 and log in when given valid credentials', async () => {  

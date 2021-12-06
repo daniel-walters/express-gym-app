@@ -35,7 +35,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
 
     // after firebase registration is complete, create a profile using user uid: CLARE
     const isStaff = checkIfUserIsAStaff(parseInt(membershipNumber));
-    const {userId} = signInResult;
+    const userId = signInResult.uid;
     const profileDetails = {
         userId: userId,
         firstName: firstName,
