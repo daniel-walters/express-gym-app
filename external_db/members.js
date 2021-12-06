@@ -1,4 +1,4 @@
-const members = [
+const externalMembers = [
     {
         firstName: "Jason",
         lastName: "Jayson",
@@ -31,4 +31,4 @@ const members = [
     }
 ]
 
-export default members;
+export default externalMembers;
