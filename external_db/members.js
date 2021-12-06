@@ -28,12 +28,6 @@ const externalMembers = [
         lastName: "User",
         membershipNumber: 1234,
         isStaff: false
-    },
-    {
-        firstName: "Test2",
-        lastName: "User",
-        membershipNumber: 5678,
-        isStaff: false
     }
 ]
 

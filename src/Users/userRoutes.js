@@ -38,8 +38,8 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
     const {userId} = signInResult;
     const profileDetails = {
         userId: userId,
-        firstName: request.body.firstName,
-        lastName: request.body.lastName,
+        firstName: firstName,
+        lastName: lastName,
         isStaff: isStaff
     }
     const profile = await Profile.create(profileDetails);
