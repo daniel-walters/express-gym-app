@@ -3,6 +3,17 @@ import request from 'supertest';
 import { deleteUser, signUpUser } from '../../src/Users/userFunctions.js'
 import Profile from '../../src/db/models/profileSchema.js';
 
+// connect and use test db
+import mongoose from "../../src/db/index.js";
+
+beforeAll(async () => {
+  await mongoose.connect("mongodb://localhost/test-gym-db");
+});
+
+afterAll(async () => {
+  await mongoose.disconnect();
+});
+
 describe('POST /sign-up', () => {
     let response;
     let uid;
