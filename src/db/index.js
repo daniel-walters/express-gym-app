@@ -3,9 +3,7 @@ import mongoosePkg from "mongoose";
 const { Mongoose } = mongoosePkg;
 const mongoose = new Mongoose();
 
-main().catch(err => console.log(err));
-
-async function main() {
+export async function openDBConnection() {
     await mongoose.connect('mongodb://localhost/gym-db');
     console.log("Database Connected");
 }

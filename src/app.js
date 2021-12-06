@@ -29,3 +29,11 @@ app.get('/', (request, response) => {
 //import and use user routes
 import userRoutes from './Users/userRoutes.js';
 app.use('/users', userRoutes);
+
+//import and use workout routes
+import workoutRoutes from './Workouts/workoutRoutes.js';
+app.use('/workouts', workoutRoutes);
+
+//import and use exercise routes
+import exerciseRoutes from './Exercises/exerciseRoutes.js';
+app.use('/exercises', exerciseRoutes);
