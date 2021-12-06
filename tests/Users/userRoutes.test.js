@@ -14,7 +14,8 @@ describe('POST /sign-up', () => {
         beforeEach(async () => {
             response = await request(app).post('/users/sign-up').send({
                 email: "testUser@test.com",
-                password: "qwerty",
+                password: "passWord1",
+                passwordConfirm: "passWord1",
                 membershipNumber: 1234
             });
             uid = response.body.uid;
@@ -24,22 +25,6 @@ describe('POST /sign-up', () => {
             expect(response.statusCode).toBe(201);
             expect(response.body.uid).toBeDefined();
         });
-    });
-
-    describe('For not a gym member', () => {
-        beforeEach(async () => {
-            response = await request(app).post('/users/sign-up').send({
-                email: "testUser@test.com",
-                password: "qwerty",
-                membershipNumber: 0
-            });
-            uid = response.body.uid;
-        });
-
-       test('should respond with statusCode 401 and respond with error message', async () => {
-           expect(response.statusCode).toBe(401);
-           expect(response.body.error).toMatch("Cannot find membership number in database");
-       });
     });
 });
 

@@ -46,7 +46,7 @@ export async function signInUser(userDetails) {
             uid: userCredential.user.uid
         }
     }).catch(error => {
-        console.log(`Internal sign-up function error is:\n${error}`);
+        console.log(`Internal sign-in function error is:\n${error}`);
         return {error};
     });
 
