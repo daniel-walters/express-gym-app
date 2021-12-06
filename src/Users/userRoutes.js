@@ -23,6 +23,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
         return;
     }
 
+
     const signInResult = await signInUser(newUserDetails);
 
     if (signInResult.error) {
