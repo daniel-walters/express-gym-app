@@ -1,6 +1,6 @@
 import { getExerciseById  } from "./exerciseFunctions.js";
 
-export async function getExerciseforDelete(req, res, next){
+export async function getExerciseToDelete(req, res, next){
     let exercise;
     try{
         exercise = await getExerciseById(req.params.id);

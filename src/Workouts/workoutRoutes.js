@@ -1,14 +1,13 @@
 import express from 'express';
 import Workout from '../db/models/workout.js'
-// ISSUE:  AHHHHH ERROR: MODULE CAN'T BE FOUND 
-// import { getWorkout } from './workoutFunctions.js';  
-
+import { getAllWorkouts, getWorkoutById, createWorkout, updateWorkout } from './workoutFunctions.js';  
+import { getWorkoutToDelete } from './workoutMiddleware.js'
 
 const routes = express.Router();
 
 routes.get('/',  async (req, res) => {
     try{
-        const workouts = await Workout.find({});
+        const workouts = await getAllWorkouts();
         res.status(200).json(workouts)
     }catch(err){
         res.status(500).json({message: err.message})
@@ -17,7 +16,7 @@ routes.get('/',  async (req, res) => {
 
 routes.get('/:id',  async (req, res) => {
     try {
-        const workout = await Workout.findById({ _id: req.params.id });
+        const workout = await getWorkoutById(req.params.id);
         res.status(201).json(workout);
       } catch (err) {
         res.status(422).json({message: err.message});
@@ -26,24 +25,23 @@ routes.get('/:id',  async (req, res) => {
 
 routes.post('/', async(req, res) => {
     try {
-        const workout = await Workout.create(req.body)
+        const workout = await createWorkout(req.body)
         res.status(201).json(workout)
     }catch(err){
         res.status(422).json({message: err.message});
     }
 })
 
-// ISSUE:  everytime to change a nested value(i.e sets/reps number), the whole workout list has to be updated => NEED A BETTER SOLUTION
 routes.put('/:id', async (req, res) => {
     try {
-      const workout = await Workout.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const workout = await updateWorkout(req.params.id, req.body);
       res.status(200).json(workout);
     } catch (err) {
       res.status(422).json({message: err.message});
     }
   });
 
-routes.delete('/:id', getWorkout, async(req, res) => {
+routes.delete('/:id', getWorkoutToDelete, async(req, res) => {
     try{
         await res.workout.remove();
         res.status(200).json({message: "Deleted Workout"})
@@ -52,17 +50,6 @@ routes.delete('/:id', getWorkout, async(req, res) => {
     }
 })
 
-async function getWorkout(req, res, next){
-    let workout
-    try{
-        workout = await Workout.findById({ _id: req.params.id });
-        if (workout == null) return res.status(404).json({ message: "Cannot find workout" })
-    }catch(err){
-        return res.status(500).json({message: err.message})
-    }
-    res.workout = workout;
-    next();
-}
 
 
 export default routes;

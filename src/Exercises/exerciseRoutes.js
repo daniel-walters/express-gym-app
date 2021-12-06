@@ -5,7 +5,7 @@ import {
   createExercise,
   updateExerciseById,
 } from "./exerciseFunctions.js";
-import { getExerciseforDelete } from "./exerciseMiddleware.js";
+import { getExerciseToDelete } from "./exerciseMiddleware.js";
 const routes = express.Router();
 
 routes.get("/", async (req, res) => {
@@ -62,7 +62,7 @@ routes.put("/:id", async (req, res) => {
   }
 });
 
-routes.delete("/:id", getExerciseforDelete, async (req, res) => {
+routes.delete("/:id", getExerciseToDelete, async (req, res) => {
   try {
     await res.exercise.remove();
     res.status(200).json({ message: "Deleted Exercise" });
