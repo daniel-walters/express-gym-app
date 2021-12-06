@@ -4,6 +4,18 @@ import Exercise from "../../src/db/models/exercise";
 import { deleteExercise } from "../../src/Exercises/exerciseFunctions.js";
 import { nullOrAny } from "../../src/utils/util-functions";
 
+// connect and use test db
+import mongoose from "../../src/db/index.js";
+
+beforeAll(async () => {
+  await mongoose.connect("mongodb://localhost/test-gym-db");
+});
+
+afterAll(async () => {
+  await mongoose.disconnect();
+});
+
+// add customised matcher to jest
 expect.extend({ nullOrAny });
 
 describe("Exercises Routes", () => {
@@ -15,14 +27,14 @@ describe("Exercises Routes", () => {
 
   test("GET /exercises -> should respond with statusCode 200 and get an object of exercises", async () => {
     const exercise = await Exercise.create({
-        name: "Deadlift",
-        description: "This is deadlift",
-        defaultSets: 4,
-        defaultReps: 15,
-        defaultWeight: 80,
-        defaultDistance: null,
-      });
-      id = exercise._id;
+      name: "Deadlift",
+      description: "This is deadlift",
+      defaultSets: 4,
+      defaultReps: 15,
+      defaultWeight: 80,
+      defaultDistance: null,
+    });
+    id = exercise._id;
 
     await request(app)
       .get("/exercises")
@@ -77,7 +89,6 @@ describe("Exercises Routes", () => {
       defaultWeight: null,
       defaultDistance: null,
     };
-    
 
     await request(app)
       .post("/exercises")
@@ -123,7 +134,7 @@ describe("Exercises Routes", () => {
       defaultDistance: null,
     };
 
-    id = exercise._id;    
+    id = exercise._id;
 
     await request(app)
       .put("/exercises/" + id)
@@ -141,7 +152,7 @@ describe("Exercises Routes", () => {
 
         // Check the data in the database
         const newExercise = await Exercise.findOne({ _id: response.body._id });
-        expect(newExercise).toBeTruthy()
+        expect(newExercise).toBeTruthy();
         expect(newExercise.description).toBe(data.description);
         expect(newExercise.defaultSets).toBe(data.defaultSets);
         expect(newExercise.defaultReps).toBe(data.defaultReps);
@@ -152,14 +163,13 @@ describe("Exercises Routes", () => {
 
   test("DELETE /exercises/:id", async () => {
     const exercise = await Exercise.create({
-        name: "test",
-        description: "Test data to be deleted",
-        defaultSets: 5,
-        defaultReps: 20,
-        defaultWeight: 25,
-        defaultDistance: null,
-      });
-  
+      name: "test",
+      description: "Test data to be deleted",
+      defaultSets: 5,
+      defaultReps: 20,
+      defaultWeight: 25,
+      defaultDistance: null,
+    });
 
     id = exercise._id;
 

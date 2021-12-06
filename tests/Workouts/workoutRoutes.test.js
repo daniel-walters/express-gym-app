@@ -3,6 +3,17 @@ import request from "supertest";
 import Workout from "../../src/db/models/workout";
 import { deleteWorkout } from "../../src/Workouts/workoutFunctions.js";
 
+// connect and use test db 
+import mongoose from "../../src/db/index.js"
+
+beforeAll( async () => {
+  await mongoose.connect('mongodb://localhost/test-gym-db');
+})
+
+afterAll(async () => {
+  await mongoose.disconnect();
+});
+
 describe("Workouts Routes", () => {
   let id;
 
