@@ -32,7 +32,7 @@ describe("Exercises Routes", () => {
       defaultSets: 4,
       defaultReps: 15,
       defaultWeight: 80,
-      defaultDistance: null,
+      defaultDistance: null
     });
     id = exercise._id;
 
@@ -55,7 +55,7 @@ describe("Exercises Routes", () => {
       });
   });
 
-  test("GET /exercises/:id -> should respond with statusCode 201 and get an correct id, name, description, defaultSets, defaultReps,defaultWeight, defaultDistance", async () => {
+  test("GET /exercises/:id -> should respond with statusCode 201 and get correct id, name, description, defaultSets, defaultReps,defaultWeight, defaultDistance", async () => {
     const exercise = await Exercise.create({
       name: "Deadlift",
       description: "This is deadlift",
@@ -95,7 +95,7 @@ describe("Exercises Routes", () => {
       .send(exercise)
       .expect(201)
       .then(async (response) => {
-        const exercise = await Exercise.findOne({ _id: response.body._id });
+        
         id = response.body._id;
         // Check the response
         expect(response.body._id).toBeTruthy();
@@ -107,11 +107,12 @@ describe("Exercises Routes", () => {
         expect(response.body.defaultDistance).toBe(exercise.defaultDistance);
 
         // Check the data in the database
-        expect(exercise.description).toBe(exercise.description);
-        expect(exercise.defaultSets).toBe(exercise.defaultSets);
-        expect(exercise.defaultReps).toBe(exercise.defaultReps);
-        expect(exercise.defaultWeight).toBe(exercise.defaultWeight);
-        expect(exercise.defaultDistance).toBe(exercise.defaultDistance);
+        const newExercise = await Exercise.findOne({ _id: response.body._id });
+        expect(newExercise.description).toBe(exercise.description);
+        expect(newExercise.defaultSets).toBe(exercise.defaultSets);
+        expect(newExercise.defaultReps).toBe(exercise.defaultReps);
+        expect(newExercise.defaultWeight).toBe(exercise.defaultWeight);
+        expect(newExercise.defaultDistance).toBe(exercise.defaultDistance);
       });
   });
 

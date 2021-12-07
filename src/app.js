@@ -37,3 +37,8 @@ app.use('/workouts', workoutRoutes);
 //import and use exercise routes
 import exerciseRoutes from './Exercises/exerciseRoutes.js';
 app.use('/exercises', exerciseRoutes);
+
+
+//import and use report routes
+import reportRoutes from './Reports/reportRoutes.js';
+app.use('/reports', reportRoutes);

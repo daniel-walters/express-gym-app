@@ -85,7 +85,7 @@ describe("Workouts Routes", () => {
 
   // test for post /workouts
   test("POST/workouts -> should respond with statusCode 201 and add new workout with correct sets, reps and weight value", async () => {
-    const workout = {
+    const newWorkout = {
       exercises: [
         {
           exercise_id: "6188d363ee05ab76027e44cf",
@@ -97,26 +97,24 @@ describe("Workouts Routes", () => {
       ],
     };
 
-    // console.log(workout);
-
     await request(app)
       .post("/workouts")
-      .send(workout)
+      .send(newWorkout)
       .expect(201)
       .then(async (response) => {
         // Check the response
-        const workout = await Workout.findOne({ _id: response.body._id });
         expect(response.body._id).toBeTruthy();
-        expect(response.body.sets).toBe(workout.sets);
-        expect(response.body.reps).toBe(workout.reps);
-        expect(response.body.weight).toBe(workout.weight);
+        expect(response.body.sets).toBe(newWorkout.sets);
+        expect(response.body.reps).toBe(newWorkout.reps);
+        expect(response.body.weight).toBe(newWorkout.weight);
         id = response.body._id;
 
         // Check the data in the database
+        const workout = await Workout.findOne({ _id: response.body._id });
         expect(workout).toBeTruthy();
-        expect(response.body.sets).toBe(workout.sets);
-        expect(response.body.reps).toBe(workout.reps);
-        expect(response.body.weight).toBe(workout.weight);
+        expect(workout.sets).toBe(newWorkout.sets);
+        expect(workout.reps).toBe(newWorkout.reps);
+        expect(workout.weight).toBe(newWorkout.weight);
       });
   });
 
