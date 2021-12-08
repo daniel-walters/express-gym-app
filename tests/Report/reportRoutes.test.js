@@ -52,18 +52,10 @@ describe("Report Routes", () => {
         // Check the response data
         expect(response.body[reports.length - 1]._id).toBe(id);
         expect(response.body[reports.length - 1].type).toBe(report.type);
-        expect(response.body[reports.length - 1].description).toBe(
-          report.description
-        );
-        expect(response.body[reports.length - 1].resolved).toBe(
-          report.resolved
-        );
-        expect(response.body[reports.length - 1].reportDate).toBe(
-          report.reportDate
-        );
-        expect(response.body[reports.length - 1].reportImage).toBe(
-          report.reportImage
-        );
+        expect(response.body[reports.length - 1].description).toBe(report.description);
+        expect(response.body[reports.length - 1].resolved).toBe(report.resolved);
+        expect(response.body[reports.length - 1].reportDate).toBe(report.reportDate);
+        expect(response.body[reports.length - 1].reportImage).toBe(report.reportImage);
       });
   });
 

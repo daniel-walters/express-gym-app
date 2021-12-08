@@ -12,7 +12,6 @@ export function checkIfUserIsAMember(request, response, next) {
         const { membershipNumber: extMemNum } = member;
         return (extMemNum === membershipNumber);
     });
-
     if (member) {
         next();
     } else {
