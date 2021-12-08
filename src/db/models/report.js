@@ -5,7 +5,7 @@ const reportSchema = mongoose.Schema({
     description: {type: String, required: true},
     resolved: {type: Boolean, required: true},
     reportDate: {type: Date, default: Date.now },
-    reportImg: String
+    reportImage: String
 });
 
 export default mongoose.model("Report", reportSchema);

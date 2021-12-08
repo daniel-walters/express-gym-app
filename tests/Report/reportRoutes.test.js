@@ -28,14 +28,16 @@ describe("Report Routes", () => {
   });
 
   test("GET /reports -> should respond with statusCode 200 and get all reports", async () => {
-    const report = await Report.create({
+    let report = await Report.create({
       type: "faulty equipment",
       description: "I break the barbell",
       resolved: false,
       reportDate: new Date(),
-      reportImage: null
+      reportImage: null,
     });
-    
+    // convert to JSON object
+    report = JSON.parse(JSON.stringify(report));
+
     id = report._id;
     const reports = await Report.find({});
 
@@ -48,30 +50,40 @@ describe("Report Routes", () => {
         expect(response.body.length).toEqual(reports.length);
 
         // Check the response data
-        expect(response.body[reports.length - 1]._id).toBe(report.id);
+        expect(response.body[reports.length - 1]._id).toBe(id);
         expect(response.body[reports.length - 1].type).toBe(report.type);
-        expect(response.body[reports.length - 1].description).toBe(report.description);
-        expect(response.body[reports.length - 1].resolved).toBe(report.resolved);
-        expect(new Date(response.body[reports.length - 1].reportDate).toString()).toBe(report.reportDate);
-        expect(response.body[reports.length - 1].reportImage).toBe(report.reportImage);
+        expect(response.body[reports.length - 1].description).toBe(
+          report.description
+        );
+        expect(response.body[reports.length - 1].resolved).toBe(
+          report.resolved
+        );
+        expect(response.body[reports.length - 1].reportDate).toBe(
+          report.reportDate
+        );
+        expect(response.body[reports.length - 1].reportImage).toBe(
+          report.reportImage
+        );
       });
   });
 
   test("GET /reports/:id -> should respond with statusCode 201 and get correct values", async () => {
-    const report = await Report.create({
+    let report = await Report.create({
       type: "faulty equipment",
       description: "test for get by id request",
       resolved: false,
       reportDate: new Date(),
-      reportImage: null
+      reportImage: null,
     });
     id = report._id;
+
+    report = JSON.parse(JSON.stringify(report));
 
     await request(app)
       .get("/reports/" + id)
       .expect(201)
       .then((response) => {
-        expect(response.body._id).toBe(report.id);
+        expect(response.body._id).toBe(report._id);
         expect(response.body.type).toBe(report.type);
         expect(response.body.description).toBe(report.description);
         expect(response.body.resolved).toBe(report.resolved);
@@ -81,12 +93,12 @@ describe("Report Routes", () => {
   });
 
   test("POST/reports -> should respond with statusCode 201 and add new reports with id, type, description, resolved, reportImage", async () => {
-    const report = {
-        type: "faulty equipment",
-        description: "test for post request",
-        resolved: false,
-        reportDate: new Date(),
-        reportImage: null
+    let report = {
+      type: "faulty equipment",
+      description: "test for post request",
+      resolved: false,
+      reportDate: new Date(),
+      reportImage: null,
     };
 
     await request(app)
@@ -94,7 +106,9 @@ describe("Report Routes", () => {
       .send(report)
       .expect(201)
       .then(async (response) => {
-        const report = await Report.findOne({_id: response.body._id});
+        let report = await Report.findOne({ _id: response.body._id });
+        report = JSON.parse(JSON.stringify(report));
+
         id = response.body._id;
         // Check the response
         expect(response.body._id).toBeTruthy();
@@ -102,26 +116,29 @@ describe("Report Routes", () => {
         expect(response.body.description).toBe(report.description);
         expect(response.body.resolved).toBe(report.resolved);
         expect(response.body.reportDate).toBe(report.reportDate);
+        expect(response.body.reportImage).toBe(report.reportImage);
+      });
     });
 
     test("PUT /report/:id -> should respond with statusCode 200 and update existing repot", async () => {
-      const report = await Report.create({
+      let report = await Report.create({
         type: "faulty equipment",
         description: "test for put request",
         resolved: false,
         reportDate: new Date(),
         reportImage: null
       });
+      id = report._id;
+      report = JSON.parse(JSON.stringify(report));
 
-      const data = {
+      let data = {
         type: "updated faulty equipment",
         description: "updated description",
         resolved: true,
         reportDate: new Date(),
         reportImage: null
       };
-
-      id = report._id;
+      data = JSON.parse(JSON.stringify(data));
 
       await request(app)
         .put("/reports/" + id)
@@ -129,7 +146,7 @@ describe("Report Routes", () => {
         .expect(200)
         .then(async (response) => {
           // Check the response
-          expect(response.body._id).toBe(exercise.id);
+          expect(response.body._id).toBe(report._id);
           expect(response.body.type).toBe(data.type);
           expect(response.body.description).toBe(data.description);
           expect(response.body.resolved).toBe(data.resolved);
@@ -137,15 +154,16 @@ describe("Report Routes", () => {
           expect(response.body.reportImage).toBe(data.reportImage);
 
           // Check the data in the database
-          const updatedReport = await Report.findOne({_id: response.body._id});
+          let updatedReport = await Report.findOne({_id: response.body._id});
+          updatedReport = JSON.parse(JSON.stringify(updatedReport));
           expect(updatedReport._id).toBeTruthy();
+          expect(updatedReport.type).toBe(data.type);
           expect(updatedReport.description).toBe(data.description);
           expect(updatedReport.resolved).toBe(data.resolved);
           expect(updatedReport.reportDate).toBe(data.reportDate);
           expect(updatedReport.reportImage).toBe(data.reportImage);
         });
     });
-  });
 
   test("DELETE /reports/:id -> should delete the report with correct id", async () => {
     const report = await Report.create({
@@ -153,7 +171,7 @@ describe("Report Routes", () => {
       description: "test for delete request",
       resolved: false,
       reportDate: new Date(),
-      reportImage: null
+      reportImage: null,
     });
 
     id = report._id;
@@ -162,7 +180,7 @@ describe("Report Routes", () => {
       .delete("/reports/" + id)
       .expect(200)
       .then(async () => {
-        expect(await Report.findOne({_id: id})).toBeFalsy();
+        expect(await Report.findOne({ _id: id })).toBeFalsy();
       });
   });
 });

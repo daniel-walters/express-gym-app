@@ -32,7 +32,7 @@ routes.get("/:id", async (req, res) => {
 })
 
 //IMPORTANT: the name of image file input tag must match "reportImage" on front end 
-//for the front end <form> setting, add enctype ="multipart/form-data" to accept image
+//for the front end <form> setting, add enctype ="multipart/form-data" to accept the FormData
 routes.post("/", uploadImage.single("reportImage"), async (req, res) => {
     try {
         let report = await createReport({
@@ -40,6 +40,7 @@ routes.post("/", uploadImage.single("reportImage"), async (req, res) => {
             description: req.body.description,
             resolved: req.body.resolved,
             reportDate: req.body.reportDate,
+            // Multer adds a file object to the request object. The file object contains the files uploaded via the form.
             reportImage: req.file? req.file.originalname : null
         });
         res.status(201).json(report);
