@@ -1,7 +1,7 @@
 import express from 'express';
 import { signUpUser, signInUser } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
-import Profile from '../db/models/profileSchema';
+import Profile from '../db/models/profileSchema.js';
 import { checkIfUserIsAStaff } from './profileFunctions.js';
 
 const routes = express.Router();
