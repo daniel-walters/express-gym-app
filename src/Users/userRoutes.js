@@ -3,6 +3,7 @@ import { signUpUser, signInUser } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
 import Profile from '../db/models/profileSchema.js';
 import { checkIfUserIsAStaff } from './profileFunctions.js';
+import { getAuth, signOut } from 'firebase/auth';
 
 const routes = express.Router();
 const signUpValidations = [checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation];
@@ -65,6 +66,16 @@ routes.post('/sign-in', async (request, response) => {
     }
 
     response.status(200).json(signInResult);
+});
+
+routes.post('/sign-out', async (request, response) => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        response.json({status: "success"});
+    }).catch((error) => {
+        console.log(error);
+        response.json({status: "failed"});
+    });
 });
 
 export default routes;
