@@ -64,6 +64,7 @@ describe("Workouts Routes", () => {
         // Check the response data
         expect(response.body[0].name).toBe(workout.name);
         expect(response.body[0]._id).toBeTruthy();
+        expect(response.body[0].exercises.length).toBe(workout.exercises.length);
 
         const exerciseLength = workout.exercises.length
         for(let i = 0; i < exerciseLength - 1; i++) {
@@ -75,6 +76,7 @@ describe("Workouts Routes", () => {
         
       });
   });
+
 
   // test for get /workouts/:id
   test(" GET /workouts/:id -> should respond with statusCode 201 and get an correct id, sets, reps and weight", async () => {
