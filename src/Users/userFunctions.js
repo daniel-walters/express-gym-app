@@ -62,3 +62,11 @@ export async function deleteUser(uid) {
             console.log(error);
         });
 }
+
+//Returns the current users uid or returns false if user isnt signed in
+export async function getCurrentUserID() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    return user ? user.uid : false;
+}
