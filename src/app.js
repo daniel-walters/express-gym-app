@@ -42,3 +42,7 @@ app.use('/exercises', exerciseRoutes);
 //import and use report routes
 import reportRoutes from './Reports/reportRoutes.js';
 app.use('/reports', reportRoutes);
+
+//import and use event routes
+import eventRoutes from './Events/eventRoutes.js';
+app.use('/events', eventRoutes);

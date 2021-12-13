@@ -7,6 +7,7 @@ const eventSchema = mongoose.Schema({
     endTime: Date,
     registeredUsers: [mongoose.SchemaTypes.ObjectId],
     spotsAvailable: Number,
+    eventImage: String,
     category: {
         type: String,
         enum: [

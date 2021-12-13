@@ -1,5 +1,5 @@
 import express from "express";
-import uploadImage from "../utils/imageUpload.js"
+import uploadReportImage from "./reportImageUpload.js"
 import {
     getAllReports,
     getReportById,
@@ -32,8 +32,8 @@ routes.get("/:id", async (req, res) => {
 })
 
 //IMPORTANT: the name of image file input tag must match "reportImage" on front end 
-//for the front end <form> setting, add enctype ="multipart/form-data" to accept the FormData
-routes.post("/", uploadImage.single("reportImage"), async (req, res) => {
+//for the front-end <form> setting, add enctype ="multipart/form-data" to accept the FormData
+routes.post("/", uploadReportImage.single("reportImage"), async (req, res) => {
     try {
         let report = await createReport({
             type: req.body.type,
@@ -51,7 +51,7 @@ routes.post("/", uploadImage.single("reportImage"), async (req, res) => {
     }
 })
 
-routes.put("/:id", uploadImage.single("reportImage"), async (req, res) => {
+routes.put("/:id", uploadReportImage.single("reportImage"), async (req, res) => {
     try {
         let updateReportDetails = {
             type: req.body.type,

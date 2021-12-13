@@ -84,7 +84,7 @@ describe("Report Routes", () => {
       });
   });
 
-  test("POST/reports -> should respond with statusCode 201 and add new reports with id, type, description, resolved, reportImage", async () => {
+  test("POST/reports -> should respond with statusCode 201 and add new report with id, type, description, resolved, reportImage", async () => {
     let report = {
       type: "faulty equipment",
       description: "test for post request",

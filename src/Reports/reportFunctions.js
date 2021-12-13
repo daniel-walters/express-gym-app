@@ -6,13 +6,13 @@ export async function getAllReports(){
     return reports
 }
 
-//get reports by id
+//get report by id
 export async function getReportById(id){
     let report = await Report.findById({_id: id})
     return report
 }
 
-//create an report
+//create a report
 export async function createReport(details){
     let newReport = new Report({
         type: details.type,
@@ -26,7 +26,7 @@ export async function createReport(details){
     return result
 }
 
-//update report
+//update a report
 export async function updateReportById(id, details){
     const updatedReportDetails = {
         type: details.type,
