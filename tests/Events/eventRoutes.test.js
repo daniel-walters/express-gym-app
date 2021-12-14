@@ -22,7 +22,7 @@ describe("Event Routes", () => {
         await deleteEvent(id);
   });
 
-    test("GET /events -> should respond with statusCode 200 and get all events with correct information", async () => {
+    test("GET /events -> should respond with statusCode 200 and get an array of all events objects with correct information", async () => {
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a test",

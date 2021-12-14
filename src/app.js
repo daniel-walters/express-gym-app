@@ -52,3 +52,7 @@ app.use('/reports', reportRoutes);
 //import and use event routes
 import eventRoutes from './Events/eventRoutes.js';
 app.use('/events', eventRoutes);
+
+//import and use profile routes
+import profileRoutes from './Profiles/profileRoutes.js';
+app.use('/profiles', profileRoutes);
