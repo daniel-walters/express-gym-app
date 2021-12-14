@@ -18,14 +18,14 @@ afterAll(async () => {
 // add customised matcher to jest
 expect.extend({ nullOrAny });
 
-describe("Exercises Routes", () => {
+describe("Exercise Routes", () => {
   let id;
 
   afterEach(async () => {
     await deleteExercise(id);
   });
 
-  test("GET /exercises -> should respond with statusCode 200 and get an object of exercises", async () => {
+  test("GET /exercises -> should respond with statusCode 200 and get an array of all exercise objects", async () => {
     const exercise = await Exercise.create({
       name: "Deadlift",
       description: "This is deadlift",

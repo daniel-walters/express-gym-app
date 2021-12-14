@@ -2,7 +2,7 @@ import express from 'express';
 import { signUpUser, signInUser } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
 import Profile from '../db/models/profileSchema.js';
-import { checkIfUserIsAStaff } from './profileFunctions.js';
+import { checkIfUserIsAStaff } from '../Profiles/profileFunctions.js';
 import { getAuth, signOut } from 'firebase/auth';
 
 const routes = express.Router();
