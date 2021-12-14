@@ -6,6 +6,7 @@ import {
     createEvent,
     updateEventById,
 } from './eventFunctions.js'
+import { deleteFileFromLocal, uploadFile } from "../storage.js";
 
 const routes = express.Router();
 
@@ -34,6 +35,14 @@ routes.get("/:id", async (req, res) => {
 routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
     console.log(req.file)
 
+    let url = "";
+
+    if (req.file) {
+        url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
+    }
+
+    deleteFileFromLocal(req.file.path);
+    
     try {
         let event = await createEvent({
             name: req.body.name, 
@@ -43,7 +52,7 @@ routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
             registeredUsers:req.body.registeredUsers,
             spotsAvailable: req.body.spotsAvailable,
             category: req.body.category,
-            eventImage: req.file? req.file.originalname: null
+            eventImage: url ? url : null
         });
         res.status(201).json(event);
     } catch (err) {
