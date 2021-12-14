@@ -6,12 +6,11 @@ export const checkIfUserIsAStaff = (number) => {
     return member.isStaff
 }
 
-//get a profile by uid
+
 export async function getProfileByUid(uid){
     let profile = await Profile.findOne({userId: uid})
     return profile
 }
-
 
 export async function updateProfileByUid(uid, details){
     const updatedProfileDetails = {

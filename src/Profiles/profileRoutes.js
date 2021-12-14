@@ -30,6 +30,8 @@ routes.put("/:uid", async (req, res) => {
         };
 
         let profilePrev = await getProfileByUid(req.params.uid);
+
+        //user wouldn't be allowed to change their userid and staff status in profile
         if (profilePrev.userId !== updatedProfileDetails.userId || profilePrev.isStaff !== updatedProfileDetails.isStaff){
             throw new Error("You are not autorised to edit user id or staff status") 
         }

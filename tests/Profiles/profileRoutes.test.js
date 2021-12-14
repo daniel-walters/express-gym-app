@@ -22,10 +22,6 @@ async function deleteProfile(uid) {
 describe("Profile Routes", () => {
     let uid, profile;
 
-    afterEach(async () => {
-        await deleteProfile(uid);
-    });
-
     beforeEach(async() => {
         profile = await Profile.create({
             userId: "bXLOgQo9HMcARXHXcy2sNEyVOM82",
@@ -39,6 +35,10 @@ describe("Profile Routes", () => {
         profile = JSON.parse(JSON.stringify(profile));
         uid = profile.userId;
     })
+
+    afterEach(async () => {
+        await deleteProfile(uid);
+    });
 
     test("GET /profiles/:uid -> should respond with statusCode 201 and get correct a profile object", async () => {
      
