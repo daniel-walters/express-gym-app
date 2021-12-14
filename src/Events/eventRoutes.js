@@ -32,6 +32,8 @@ routes.get("/:id", async (req, res) => {
 })
 
 routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
+    console.log(req.file)
+
     try {
         let event = await createEvent({
             name: req.body.name, 
