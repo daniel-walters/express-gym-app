@@ -16,12 +16,16 @@ app.use(cors({
 //import initializeApp and initialize with admin credentials
 import firebaseAdmin from 'firebase-admin';
 firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.cert(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS))
+    credential: firebaseAdmin.credential.cert(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS)),
+    storageBucket: "gs://gym-app-t3a2.appspot.com"
 });
 
 //import initializeAppClient and run function
 import { initializeAppClient } from './Users/userFunctions.js';
 initializeAppClient();
+
+//export storage bucket
+export const storage = firebaseAdmin.storage().bucket();
 
 //set server to receieve json and form-data
 app.use(express.json());
