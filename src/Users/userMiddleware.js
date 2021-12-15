@@ -15,7 +15,7 @@ export function checkIfUserIsAMember(request, response, next) {
     if (member) {
         next();
     } else {
-        response.status(401).json({error: "Cannot find membership number in our database"});
+        response.json({error: "Cannot find membership number in our database"});
     }
 }
 
@@ -30,7 +30,7 @@ export function checkPasswordConfirmation(request, response, next) {
     if (password === passwordConfirm) {
         next();
     } else {
-        response.status(401).json({error: "Passwords need to be the same"});
+        response.json({error: "Passwords need to be the same"});
     }
 }
 
@@ -47,6 +47,6 @@ export function validatePasswordSecurity(request, response, next) {
     if (matcher.test(password)) {
         next();
     } else {
-        response.status(401).json({error: "Password must contain at least one lowercase letter, uppercase letter, number, and must not contain any special characters"});
+        response.json({error: "Password must contain at least one lowercase letter, uppercase letter, number, and must not contain any special characters"});
     }
 }
