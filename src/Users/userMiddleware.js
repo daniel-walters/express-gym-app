@@ -10,7 +10,7 @@ export function checkIfUserIsAMember(request, response, next) {
     const { membershipNumber } = request.body;
     const member = externalMembers.find((member) => {
         const { membershipNumber: extMemNum } = member;
-        return (extMemNum === membershipNumber);
+        return (extMemNum == membershipNumber);
     });
     if (member) {
         next();

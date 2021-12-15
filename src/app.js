@@ -10,7 +10,7 @@ export const app = express();
 //import cors
 import cors from 'cors';
 app.use(cors({
-    origin: ['https://gymappdevelopment.netlify.app/', 'http://localhost:3000/', 'http://localhost:3001/']
+    origin: "*"
 }));
 
 //import initializeApp and initialize with admin credentials

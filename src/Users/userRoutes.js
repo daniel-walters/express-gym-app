@@ -46,7 +46,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
     const profile = await Profile.create(profileDetails);
 
     // response includes firebase return info. no profile.
-    response.status(201).json(signInResult);
+    response.status(201).json(profile);
 });
 
 routes.post('/sign-in', async (request, response) => {
