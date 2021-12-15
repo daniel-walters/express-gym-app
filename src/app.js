@@ -9,9 +9,17 @@ export const app = express();
 
 //import cors
 import cors from 'cors';
-app.use(cors({
-    origin: ['https://gymappdevelopment.netlify.app/', 'http://localhost:3000/', 'http://localhost:3001/']
-}));
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'https://gymappdevelopment.netlify.app'];
+const corsOptions = {
+    origin: function (origin, callback) {
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
+  }
+app.use(cors(corsOptions));
 
 //import initializeApp and initialize with admin credentials
 import firebaseAdmin from 'firebase-admin';
