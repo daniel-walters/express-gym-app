@@ -39,9 +39,9 @@ routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
 
     if (req.file) {
         url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
+        deleteFileFromLocal(req.file.path);
     }
 
-    deleteFileFromLocal(req.file.path);
     
     try {
         let event = await createEvent({
@@ -64,6 +64,13 @@ routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
 
 
 routes.put("/:id", uploadEventImage.single("eventImage"), async (req, res) => {
+    let url = "";
+
+    if (req.file) {
+        url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
+        deleteFileFromLocal(req.file.path);
+    }
+    
     try {
         let updateEventDetails = {
             name: req.body.name, 

@@ -29,7 +29,7 @@ describe("Report Routes", () => {
 
   test("GET /reports -> should respond with statusCode 200 and get all reports", async () => {
     let report = await Report.create({
-      type: "faulty equipment",
+      type: "Faulty Equipment",
       description: "I break the barbell",
       resolved: false,
       reportDate: new Date(),
@@ -61,7 +61,7 @@ describe("Report Routes", () => {
 
   test("GET /reports/:id -> should respond with statusCode 201 and get correct values", async () => {
     let report = await Report.create({
-      type: "faulty equipment",
+      type: "Faulty Equipment",
       description: "test for get by id request",
       resolved: false,
       reportDate: new Date(),
@@ -86,7 +86,7 @@ describe("Report Routes", () => {
 
   test("POST/reports -> should respond with statusCode 201 and add new report with id, type, description, resolved, reportImage", async () => {
     let report = {
-      type: "faulty equipment",
+      type: "Faulty Equipment",
       description: "test for post request",
       resolved: false,
       reportDate: new Date(),
@@ -114,7 +114,7 @@ describe("Report Routes", () => {
 
     test("PUT /report/:id -> should respond with statusCode 200 and update existing repot", async () => {
       let report = await Report.create({
-        type: "faulty equipment",
+        type: "Faulty Equipment",
         description: "test for put request",
         resolved: false,
         reportDate: new Date(),
@@ -124,7 +124,7 @@ describe("Report Routes", () => {
       report = JSON.parse(JSON.stringify(report));
 
       let data = {
-        type: "updated faulty equipment",
+        type: "Unsocial Behavior",
         description: "updated description",
         resolved: true,
         reportDate: new Date(),
@@ -159,7 +159,7 @@ describe("Report Routes", () => {
 
   test("DELETE /reports/:id -> should delete the report with correct id", async () => {
     const report = await Report.create({
-      type: "faulty equipment",
+      type: "Unsocial Behavior",
       description: "test for delete request",
       resolved: false,
       reportDate: new Date(),
