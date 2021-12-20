@@ -1,10 +1,10 @@
 import mongoose from "../index.js";
 
 const eventSchema = mongoose.Schema({
-    name: String,
+    name: {type: String, required: true},
     description: String,
-    startTime: Date,
-    endTime: Date,
+    startTime: {type: Date, required: true},
+    endTime: {type: Date, required: true},
     registeredUsers: [mongoose.SchemaTypes.ObjectId],
     spotsAvailable: Number,
     eventImage: String,
@@ -14,7 +14,8 @@ const eventSchema = mongoose.Schema({
             'Personal Training',
             'Competition',
             'Class'
-        ]
+        ],
+        required: true
     }
 });
 
