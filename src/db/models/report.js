@@ -7,7 +7,7 @@ const reportSchema = mongoose.Schema({
         required: true
     },
     description: {type: String, required: true},
-    resolved: {type: Boolean, default: fals},
+    resolved: {type: Boolean, default: false},
     reportDate: {type: Date, default: Date.now },
     reportImage: String
 });
