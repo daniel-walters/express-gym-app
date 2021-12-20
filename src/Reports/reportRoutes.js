@@ -43,13 +43,11 @@ routes.post("/", uploadReportImage.single("reportImage"), async (req, res) => {
         url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
         deleteFileFromLocal(req.file.path);
     }
-
+    
     try {
         let report = await createReport({
             type: req.body.type,
             description: req.body.description,
-            resolved: req.body.resolved,
-            reportDate: req.body.reportDate,
             // Multer adds a file object to the request object. The file object contains the files uploaded via the form.
             reportImage: url ? url : null
         });
