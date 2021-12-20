@@ -19,8 +19,8 @@ export async function updateProfileByUid(uid, details){
             lastName: details.lastName,
             isStaff: details.isStaff,
             weight: details.weight,
-            workouts: details.workouts,
-            events: details.events,
+            workouts: details.workouts
+            // events: details.events,
     }
     
     let updatedProfile = await Profile.findOneAndUpdate({userId: uid}, updatedProfileDetails, { returnOriginal: false })

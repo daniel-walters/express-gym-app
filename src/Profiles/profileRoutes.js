@@ -25,8 +25,8 @@ routes.put("/:uid", async (req, res) => {
             lastName: req.body.lastName,
             isStaff: req.body.isStaff,
             weight: req.body.weight,
-            workouts: req.body.workouts,
-            events: req.body.events,
+            workouts: req.body.workouts
+            // events: req.body.events,
         };
 
         let profilePrev = await getProfileByUid(req.params.uid);
