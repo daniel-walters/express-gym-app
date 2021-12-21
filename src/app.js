@@ -19,6 +19,7 @@ const corsOptions = {
       }
     }
   }
+// app.use(cors());
 app.use(cors(corsOptions));
 
 //import initializeApp and initialize with admin credentials
