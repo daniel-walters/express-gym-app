@@ -65,7 +65,9 @@ routes.post('/sign-in', async (request, response) => {
         return;
     }
 
-    response.status(200).json(signInResult);
+    const profile = await Profile.findOne({uid: signInResult.uid});
+
+    response.status(200).json(profile);
 });
 
 routes.post('/sign-out', async (request, response) => {
