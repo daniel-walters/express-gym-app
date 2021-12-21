@@ -7,6 +7,7 @@ const ProfileSchema = new mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     isStaff: {type: Boolean, required: true, default: false},
+    description: String,
     weight: {type: Number, min: 0, default: null},
     workouts: {type: [{
         name: {type: String, required: true},
