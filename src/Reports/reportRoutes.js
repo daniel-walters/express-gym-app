@@ -16,8 +16,8 @@ routes.get("/", async (req, res) => {
         let reports = await getAllReports();
         res.status(200).json(reports);
     } catch (err) {
-        res.status(500).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })
@@ -27,8 +27,8 @@ routes.get("/:id", async (req, res) => {
         let report = await getReportById(req.params.id);
         res.status(201).json(report);
     } catch (err) {
-        res.status(422).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })
@@ -55,8 +55,8 @@ routes.post("/", uploadReportImage.single("reportImage"), async (req, res) => {
         });
         res.status(201).json(report);
     } catch (err) {
-        res.status(422).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })
@@ -83,8 +83,8 @@ routes.put("/:id", uploadReportImage.single("reportImage"), async (req, res) => 
         );
         res.status(200).json(report);
     } catch (err) {
-        res.status(422).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })
@@ -97,8 +97,8 @@ routes.delete("/:id", async (req, res) => {
             message: "Deleted Report"
         });
     } catch (err) {
-        res.status(500).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })

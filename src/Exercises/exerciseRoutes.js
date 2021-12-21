@@ -13,7 +13,7 @@ routes.get("/", async (req, res) => {
     let exercises = await getAllExercises();
     res.status(200).json(exercises);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.json({ error: err.message });
   }
 });
 
@@ -22,7 +22,7 @@ routes.get("/:id", async (req, res) => {
     let exercise = await getExerciseById(req.params.id);
     res.status(201).json(exercise);
   } catch (err) {
-    res.status(422).json({ message: err.message });
+    res.json({ error: err.message });
   }
 });
 
@@ -38,7 +38,7 @@ routes.post("/", async (req, res) => {
     });
     res.status(201).json(exercise);
   } catch (err) {
-    res.status(422).json({ message: err.message });
+    res.json({ error: err.message });
   }
 });
 
@@ -58,7 +58,7 @@ routes.put("/:id", async (req, res) => {
     );
     res.status(200).json(exercise);
   } catch (err) {
-    res.status(422).json({ message: err.message });
+    res.json({ error: err.message });
   }
 });
 
@@ -67,7 +67,7 @@ routes.delete("/:id", getExerciseToDelete, async (req, res) => {
     await res.exercise.remove();
     res.status(200).json({ message: "Deleted Exercise" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.json({ error: err.message });
   }
 });
 
