@@ -19,6 +19,7 @@ const corsOptions = {
       }
     }
   }
+//app.use(cors());
 app.use(cors(corsOptions));
 
 //import initializeApp and initialize with admin credentials
@@ -68,3 +69,7 @@ app.use('/events', eventRoutes);
 //import and use profile routes
 import profileRoutes from './Profiles/profileRoutes.js';
 app.use('/profiles', profileRoutes);
+
+//import and use checkin routes
+import checkInRoutes from './CheckIn/checkInRoutes.js';
+app.use('/checkin', checkInRoutes);
