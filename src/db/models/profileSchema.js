@@ -8,8 +8,16 @@ const ProfileSchema = new mongoose.Schema({
     lastName: {type: String, required: true},
     isStaff: {type: Boolean, required: true, default: false},
     weight: {type: Number, min: 0, default: null},
-    workouts: {type: [{type: mongoose.Schema.Types.ObjectId, ref: "Workout"}], default: []},
-    events: {type: [{type: mongoose.Schema.Types.ObjectId, ref: "Event"}], defaut: []}
+    workouts: {type: [{
+        name: {type: String, required: true},
+        exercises: [{
+            exerciseId: {type: mongoose.Schema.Types.ObjectId, ref: "Exercise"},
+            sets: Number,
+            reps: Number,
+            weight: Number,
+            distance: Number
+        }]
+    }], default: [] } 
 });
 
 export default mongoose.model("Profile", ProfileSchema)
