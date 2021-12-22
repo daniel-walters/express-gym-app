@@ -3,11 +3,11 @@ import mongoose from "../index.js";
 const reportSchema = mongoose.Schema({
     type: {
         type: String, 
-        enum: ['Faulty Equipment','Unsocial Behavior'],
+        enum: ['Faulty Equipment','Unsocial Behaviour'],
         required: true
     },
     description: {type: String, required: true},
-    resolved: {type: Boolean, required: true},
+    resolved: {type: Boolean, default: false},
     reportDate: {type: Date, default: Date.now },
     reportImage: String
 });

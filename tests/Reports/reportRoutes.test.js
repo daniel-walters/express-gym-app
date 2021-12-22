@@ -31,8 +31,6 @@ describe("Report Routes", () => {
     let report = await Report.create({
       type: "Faulty Equipment",
       description: "I break the barbell",
-      resolved: false,
-      reportDate: new Date(),
       reportImage: null,
     });
     // convert to JSON object
@@ -63,8 +61,6 @@ describe("Report Routes", () => {
     let report = await Report.create({
       type: "Faulty Equipment",
       description: "test for get by id request",
-      resolved: false,
-      reportDate: new Date(),
       reportImage: null,
     });
     id = report._id;
@@ -88,8 +84,6 @@ describe("Report Routes", () => {
     let report = {
       type: "Faulty Equipment",
       description: "test for post request",
-      resolved: false,
-      reportDate: new Date(),
       reportImage: null,
     };
 
@@ -116,15 +110,13 @@ describe("Report Routes", () => {
       let report = await Report.create({
         type: "Faulty Equipment",
         description: "test for put request",
-        resolved: false,
-        reportDate: new Date(),
         reportImage: null
       });
       id = report._id;
       report = JSON.parse(JSON.stringify(report));
 
       let data = {
-        type: "Unsocial Behavior",
+        type: "Unsocial Behaviour",
         description: "updated description",
         resolved: true,
         reportDate: new Date(),
@@ -159,10 +151,8 @@ describe("Report Routes", () => {
 
   test("DELETE /reports/:id -> should delete the report with correct id", async () => {
     const report = await Report.create({
-      type: "Unsocial Behavior",
+      type: "Unsocial Behaviour",
       description: "test for delete request",
-      resolved: false,
-      reportDate: new Date(),
       reportImage: null,
     });
 
