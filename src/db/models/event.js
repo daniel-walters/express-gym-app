@@ -1,12 +1,12 @@
 import mongoose from "../index.js";
 
 const eventSchema = mongoose.Schema({
-    name: String,
+    name: {type: String, required: true},
     description: String,
-    startTime: Date,
-    endTime: Date,
-    registeredUsers: [mongoose.SchemaTypes.ObjectId],
-    spotsAvailable: Number,
+    startTime: {type: Date, min: Date.now(), required: true, message: "Starting time cannot be set earlier than current time"},
+    endTime: {type: Date, min: this.startTime, required: true, message: "End time cannot be set earlier than the start time"},
+    registeredUsers: [{type: mongoose.SchemaTypes.ObjectId, ref: "Profile"}],
+    spotsAvailable: {type: Number, min: 1},
     eventImage: String,
     category: {
         type: String,
@@ -14,7 +14,8 @@ const eventSchema = mongoose.Schema({
             'Personal Training',
             'Competition',
             'Class'
-        ]
+        ],
+        required: true
     }
 });
 
