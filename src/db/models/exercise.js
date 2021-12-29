@@ -1,7 +1,7 @@
 import mongoose from "../index.js";
 
 const exerciseSchema = mongoose.Schema({
-    name: String,
+    name: {type: String, required: true},
     description: String,
     defaultSets: Number,
     defaultReps: Number,

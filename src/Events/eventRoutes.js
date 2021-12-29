@@ -56,6 +56,7 @@ routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
         });
         res.status(201).json(event);
     } catch (err) {
+        console.log(err.errors)
         res.json({
             error: err.message
         });
