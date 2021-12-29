@@ -11,8 +11,8 @@ routes.get("/:uid", async (req, res) => {
         let profile = await getProfileByUid(req.params.uid);
         res.status(201).json(profile);
     } catch (err) {
-        res.status(422).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })
@@ -43,8 +43,8 @@ routes.put("/:uid", async (req, res) => {
 
         res.status(200).json(profile);
     } catch (err) {
-        res.status(422).json({
-            message: err.message
+        res.json({
+            error: err.message
         });
     }
 })
