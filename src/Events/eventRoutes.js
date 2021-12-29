@@ -88,7 +88,7 @@ routes.put("/:id", uploadEventImage.single("eventImage"), async (req, res) => {
         );
         res.status(200).json(report);
     } catch (err) {
-        res.status(422).json({
+        res.json({
             error: err.message
         });
     }
