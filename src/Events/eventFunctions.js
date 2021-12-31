@@ -22,6 +22,7 @@ export async function createEvent(details){
         endTime:details.endTime,
         registeredUsers:details.registeredUsers,
         spotsAvailable: details.spotsAvailable,
+        createdBy: details.createdBy,
         eventImage: details.eventImage,
         category: details.category    
     })
@@ -39,6 +40,7 @@ export async function updateEventById(id, details){
         endTime:details.endTime,
         registeredUsers:details.registeredUsers,
         spotsAvailable: details.spotsAvailable,
+        createdBy: details.createdBy,
         eventImage: details.eventImage,
         category: details.category    
     }
