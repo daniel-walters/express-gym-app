@@ -47,7 +47,11 @@ routes.post("/", uploadReportImage.single("reportImage"), async (req, res) => {
     try {
         let report = await createReport({
             type: req.body.type,
+            userId: req.body.userId,
             description: req.body.description,
+            resolved: req.body.resolved,
+            resolvedBy: req.body.resolvedBy,
+            reportDate: req.body.reportDate,
             // Multer adds a file object to the request object. The file object contains the files uploaded via the form.
             reportImage: url ? url : null
         });
@@ -60,20 +64,22 @@ routes.post("/", uploadReportImage.single("reportImage"), async (req, res) => {
 })
 
 routes.put("/:id", uploadReportImage.single("reportImage"), async (req, res) => {
-    let url = "";
+    // let url = "";
     
-    if (req.file) {
-        url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
-        deleteFileFromLocal(req.file.path);
-    }
+    // if (req.file) {
+    //     url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
+    //     deleteFileFromLocal(req.file.path);
+    // }
 
     try {
         let updateReportDetails = {
             type: req.body.type,
+            userId: req.body.userId,
             description: req.body.description,
             resolved: req.body.resolved,
-            reportDate: req.body.reportDate,
-            reportImage: url ? url : null
+            resolvedBy: req.body.resolvedBy,
+            reportDate: req.body.reportDate? req.body.reportDate: Date.now(),
+            reportImage: req.body.reportImage
         };
         let report = await updateReportById(
             req.params.id,
