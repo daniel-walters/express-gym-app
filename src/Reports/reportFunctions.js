@@ -16,8 +16,10 @@ export async function getReportById(id){
 export async function createReport(details){
     let newReport = new Report({
         type: details.type,
+        userId:details.userId,
         description: details.description,
         resolved: details.resolved,
+        resolvedBy: details.resolvedBy,
         reportDate: details.reportDate,
         reportImage: details.reportImage
     })
@@ -30,8 +32,10 @@ export async function createReport(details){
 export async function updateReportById(id, details){
     const updatedReportDetails = {
         type: details.type,
+        userId:details.userId,
         description: details.description,
         resolved: details.resolved,
+        resolvedBy: details.resolvedBy,
         reportDate: details.reportDate,
         reportImage: details.reportImage
     }
