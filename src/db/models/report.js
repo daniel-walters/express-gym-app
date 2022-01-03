@@ -6,7 +6,7 @@ const reportSchema = mongoose.Schema({
         enum: ['Faulty Equipment','Unsocial Behaviour'],
         required: true
     },
-    userId: {type: String, ref: "Profile"},
+    userId: {type: String, ref: "Profile", required: true},
     description: {type: String, required: true},
     resolved: {type: Boolean, default: false},
     resolvedBy:{type: String, default: null},
