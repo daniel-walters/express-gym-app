@@ -31,7 +31,8 @@ describe("Event Routes", () => {
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 20,
             eventImage: null,
-            category: 'Competition'
+            category: 'Competition',
+            createdBy: "61be9b2af76e3e4a461b7040"
         })
         event = JSON.parse(JSON.stringify(event));
         
@@ -55,6 +56,7 @@ describe("Event Routes", () => {
             expect(response.body[events.length - 1].registeredUsers).toEqual(event.registeredUsers);
             expect(response.body[events.length - 1].spotsAvailable).toBe(event.spotsAvailable);
             expect(response.body[events.length - 1].category).toBe(event.category);
+            expect(response.body[events.length - 1].createdBy).toBe(event.createdBy);
         })
     })
 
@@ -67,7 +69,8 @@ describe("Event Routes", () => {
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 20,
             eventImage: null,
-            category: 'Competition'
+            category: 'Competition',
+            createdBy: "61be9b2af76e3e4a461b7040"
         });
 
         event = JSON.parse(JSON.stringify(event));
@@ -84,6 +87,7 @@ describe("Event Routes", () => {
             expect(response.body.registeredUsers).toEqual(event.registeredUsers);
             expect(response.body.spotsAvailable).toBe(event.spotsAvailable);
             expect(response.body.category).toBe(event.category);
+            expect(response.body.createdBy).toBe(event.createdBy);
         })
     })
 
@@ -96,7 +100,8 @@ describe("Event Routes", () => {
             registeredUsers: null,
             spotsAvailable: 20,
             eventImage: null,
-            category: 'Competition'
+            category: 'Competition', 
+            createdBy: "61be9b2af76e3e4a461b7040"
         };
 
         await request(app)
@@ -118,7 +123,8 @@ describe("Event Routes", () => {
             expect(response.body.registeredUsers).toEqual(event.registeredUsers);
             expect(response.body.spotsAvailable).toBe(event.spotsAvailable);
             expect(response.body.eventImage).toBe(event.eventImage);
-            expect(response.body.category).toBe(event.category);  
+            expect(response.body.category).toBe(event.category); 
+            expect(response.body.createdBy).toBe(event.createdBy);   
         })
     })
 
@@ -131,7 +137,8 @@ describe("Event Routes", () => {
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 20,
             eventImage: null,
-            category: 'Competition'
+            category: 'Competition',
+            createdBy: "61be9b2af76e3e4a461b7040"
         });
         event = JSON.parse(JSON.stringify(event));
         id = event._id;
@@ -144,7 +151,8 @@ describe("Event Routes", () => {
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee", "6200d363ee05ab76923663ff"],
             spotsAvailable: 15,
             eventImage: null,
-            category: 'Competition'
+            category: 'Competition',
+            createdBy: "61be9b2af76e3e4a461b7040"
         }
 
         updatedEvent = JSON.parse(JSON.stringify(updatedEvent));
@@ -164,6 +172,8 @@ describe("Event Routes", () => {
             expect(response.body.spotsAvailable).toBe(updatedEvent.spotsAvailable);
             expect(response.body.eventImage).toBe(updatedEvent.eventImage);
             expect(response.body.category).toBe(updatedEvent.category);
+            expect(response.body.createdBy).toBe(updatedEvent.createdBy);
+
 
             // Check the data in the database
             let updatedData = await Event.findOne({_id: response.body._id});
@@ -189,7 +199,8 @@ describe("Event Routes", () => {
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 15,
             eventImage: null,
-            category: 'Class'
+            category: 'Class',
+            createdBy: "61be9b2af76e3e4a461b7040"
         });
 
         id = event._id;
