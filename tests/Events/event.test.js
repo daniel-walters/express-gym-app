@@ -12,7 +12,7 @@ afterAll(async () => {
 
 describe("event model", () => {
   test("should allow 'Personal Training', 'Class', 'Competition'", async () => {
-    //add required field name, startTime, endTime, createdBy to tested model, otherwise the tests will fail
+    //add required field name, startTime, endTime, createdBy to test model, otherwise the tests fail to run
     let trainingEvent = await event.create({
       name:"event test",
       category: "Personal Training",
