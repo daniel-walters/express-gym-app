@@ -24,7 +24,8 @@ const eventSchema = mongoose.Schema({
             'Class'
         ],
         required: true
-    }
+    },
+    createdBy: {type: mongoose.SchemaTypes.ObjectId, ref: "Profile", required: true}
 });
 
 function dateValidator(value) {

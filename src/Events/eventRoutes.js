@@ -52,6 +52,7 @@ routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
             registeredUsers:req.body.registeredUsers,
             spotsAvailable: req.body.spotsAvailable,
             category: req.body.category,
+            createdBy: req.body.createdBy,
             eventImage: url ? url : null
         });
         res.status(201).json(event);
@@ -81,6 +82,7 @@ routes.put("/:id", uploadEventImage.single("eventImage"), async (req, res) => {
             registeredUsers:req.body.registeredUsers,
             spotsAvailable: req.body.spotsAvailable,
             category: req.body.category,
+            createdBy: req.body.createdBy,
             eventImage: req.file? req.file.originalname: null
         };
         let report = await updateEventById(
