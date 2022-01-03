@@ -8,7 +8,7 @@ export async function getAllEvents(){
 
 //get event by id
 export async function getEventById(id){
-    let event = await Event.findById({_id: id})
+    let event = await Event.findById({_id: id}).populate({path: 'createdBy', select: ['firstName', 'lastName']})
     return event
 }
 
