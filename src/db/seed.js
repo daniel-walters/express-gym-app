@@ -12,7 +12,6 @@ export async function seedCheckIn() {
 
 export async function seedExercises() {
     const exerciseDoc = await exercise.find({});
-    console.log("exercise doc:", exerciseDoc);
     if (exerciseDoc.length === 0) {
         console.log("seeding exercsies")
         await exercise.create(exercisesList);
