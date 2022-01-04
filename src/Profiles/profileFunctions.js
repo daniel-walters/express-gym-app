@@ -17,10 +17,11 @@ export async function updateProfileByUid(uid, details){
             userId: details.userId,
             firstName: details.firstName,
             lastName: details.lastName,
+            description: details.description,
             isStaff: details.isStaff,
             weight: details.weight,
+            checkedIn: details.checkedIn,
             workouts: details.workouts,
-            events: details.events,
     }
     
     let updatedProfile = await Profile.findOneAndUpdate({userId: uid}, updatedProfileDetails, { returnOriginal: false })
