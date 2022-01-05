@@ -80,3 +80,13 @@ export async function resetPassword() {
         console.log("ERROR:", e);
     });
 }
+
+export async function forgotPassword(email) {
+    const auth = getAuth();
+
+    sendPasswordResetEmail(auth, email).then(() => {
+        console.log("password reset sent");
+    }).catch((e) => {
+        console.log("ERROR:", e);
+    })
+}
