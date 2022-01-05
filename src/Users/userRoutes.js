@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUpUser, signInUser } from './userFunctions.js';
+import { signUpUser, signInUser, resetPassword } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
 import Profile from '../db/models/profileSchema.js';
 import { checkIfUserIsAStaff } from '../Profiles/profileFunctions.js';
@@ -78,6 +78,15 @@ routes.post('/sign-out', async (request, response) => {
         console.log(error);
         response.json({status: "failed"});
     });
+});
+
+routes.post('/reset-password', async (request, response) => {
+    resetPassword().then(() => {
+        response.json({status: "success"});
+    }).catch((e) => {
+        console.log(e);
+        response.json({status: "failed"});
+    })
 });
 
 export default routes;
