@@ -8,6 +8,14 @@ export async function getCheckedIn() {
     return doc.numCheckedIn;
 }
 
+export async function getStats() {
+    const checkIn = await checkin.find({});
+    const doc = checkIn[0];
+    const dailyStats = doc.dailyStats;
+    const weeksActive = doc.weeksActive;
+    return {dailyStats, weeksActive};
+}
+
 export async function checkIn(userId) {
     //update check in doc to +1
     const checkIn = await checkin.find({});
