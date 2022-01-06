@@ -66,6 +66,8 @@ routes.post("/",uploadEventImage.single("eventImage"), async (req, res) => {
 
 
 routes.put("/:id", uploadEventImage.single("eventImage"), async (req, res) => {
+    let event = await getEventById(req.params.id)
+    let existingImageUrl = event.eventImage
     let url = "";
 
     if (req.file) {
@@ -83,7 +85,7 @@ routes.put("/:id", uploadEventImage.single("eventImage"), async (req, res) => {
             spotsAvailable: req.body.spotsAvailable,
             category: req.body.category,
             createdBy: req.body.createdBy,
-            eventImage: req.file? req.file.originalname: null
+            eventImage: url? url : existingImageUrl
         };
         let report = await updateEventById(
             req.params.id,

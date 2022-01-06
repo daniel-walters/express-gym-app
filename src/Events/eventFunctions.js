@@ -44,6 +44,8 @@ export async function updateEventById(id, details){
         eventImage: details.eventImage,
         category: details.category    
     }
+    console.log(updatedEventDetails);
+    console.log(details);
     let updatedEvent = await Event.findByIdAndUpdate(id, updatedEventDetails, { new: true })
     return updatedEvent
 }
