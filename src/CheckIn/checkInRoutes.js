@@ -1,5 +1,5 @@
 import express from "express";
-import { checkIn, checkOut, getCheckedIn } from "./checkInFunctions.js";
+import { checkIn, checkOut, getCheckedIn, getStats } from "./checkInFunctions.js";
 
 const routes = express.Router();
 
@@ -29,6 +29,15 @@ routes.post("/check-out", async (request, response) => {
         response.status(200).json({status: "success", num: num});
     } catch (e) {
         response.status(422).json({status: "failure"});
+    }
+});
+
+routes.get("/stats", async (request, response) => {
+    try {
+        const stats = await getStats();
+        response.json(stats);
+    } catch (e) {
+        response.json({status: "failure"});
     }
 });
 
