@@ -9,6 +9,7 @@ const ProfileSchema = new mongoose.Schema({
     isStaff: {type: Boolean, required: true, default: false},
     description: String,
     weight: {type: Number, min: 0, default: null},
+    prevWeights: [Number],
     checkedIn: {type: Boolean, required: true, default: false},
     workouts: {type: [{
         name: {type: String, required: true},
@@ -17,7 +18,9 @@ const ProfileSchema = new mongoose.Schema({
             sets: Number,
             reps: Number,
             weight: Number,
+            prevWeight: [Number],
             distance: Number,
+            prevDistance: [Number]
           },
         ],
       },
