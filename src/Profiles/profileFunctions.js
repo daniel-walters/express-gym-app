@@ -8,7 +8,7 @@ export const checkIfUserIsAStaff = (number) => {
 
 
 export async function getProfileByUid(uid){
-    let profile = await Profile.findOne({userId: uid})
+    let profile = await Profile.findOne({userId: uid}).populate({path:'workouts.exercises.exerciseId', select: ['name']})
     return profile
 }
 
