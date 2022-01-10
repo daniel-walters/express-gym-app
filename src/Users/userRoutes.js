@@ -22,7 +22,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
 
     if (signUpResult.error) {
         console.log("Sign up failed, returning error to requester");
-        response.json(signUpResult);
+        response.json({error: signUpResult.error.message});
         return;
     }
 
@@ -30,7 +30,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
 
     if (signInResult.error) {
         console.log("Sign in failed, returning error to requester");
-        response.json(signInResult);
+        response.json({error: signUpResult.error.message});
         return;
     }
 
@@ -61,7 +61,7 @@ routes.post('/sign-in', async (request, response) => {
 
     if (signInResult.error) {
         console.log("Sign in failed, returning error to requester");
-        response.status(401).json(signInResult);
+        response.status(401).json({error: signUpResult.error.message});
         return;
     }
 
