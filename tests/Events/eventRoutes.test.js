@@ -60,7 +60,7 @@ describe("Event Routes", () => {
         })
     })
 
-    test("GET /events/:id -> should respond with statusCode 201 and get correct event values", async () => {
+    test("GET /events/:id -> should respond with statusCode 201 and get correct event values, including createdBy populated from profile", async () => {
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a GET by id test",
@@ -70,7 +70,7 @@ describe("Event Routes", () => {
             spotsAvailable: 20,
             eventImage: null,
             category: 'Competition',
-            createdBy: "61be9b2af76e3e4a461b7040"
+            createdBy: "61db8b067928faf57f4678fa"
         });
 
         event = JSON.parse(JSON.stringify(event));
@@ -87,7 +87,9 @@ describe("Event Routes", () => {
             expect(response.body.registeredUsers).toEqual(event.registeredUsers);
             expect(response.body.spotsAvailable).toBe(event.spotsAvailable);
             expect(response.body.category).toBe(event.category);
-            expect(response.body.createdBy).toBe(event.createdBy);
+            expect(response.body.createdBy._id).toBe(event.createdBy);
+            expect(response.body.createdBy.firstName).toBe('Test');
+            expect(response.body.createdBy.lastName).toBe('User');
         })
     })
 
