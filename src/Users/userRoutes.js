@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUpUser, signInUser, resetPassword, forgotPassword } from './userFunctions.js';
+import { signUpUser, signInUser, resetPassword, forgotPassword, deleteUser } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
 import Profile from '../db/models/profileSchema.js';
 import { checkIfUserIsAStaff } from '../Profiles/profileFunctions.js';
@@ -96,6 +96,16 @@ routes.post('/forgot-password', async (request, response) => {
         console.log(e);
         response.json({status: "failed"});
     });
+})
+
+routes.delete('/delete', async (request, response) => {
+    const {uid} = request.body;
+    deleteUser(uid).then(() => {
+        response.json({status: "deleted"});
+    }).catch((e) => {
+        console.log(e);
+        response.json({status: "failed"});
+    })
 })
 
 export default routes;
