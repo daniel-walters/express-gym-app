@@ -25,7 +25,7 @@ const ProfileSchema = new mongoose.Schema({
         ],
       },
     ],
-    default: [{name:"My Workouts", exercises: []}],
+    default: [],
   },
 });
 
