@@ -98,7 +98,7 @@ routes.post('/forgot-password', async (request, response) => {
     });
 })
 
-routes.post('/delete', async (request, response) => {
+routes.delete('/delete', async (request, response) => {
     const {uid} = request.body;
     deleteUser(uid).then(() => {
         response.json({status: "deleted"});
