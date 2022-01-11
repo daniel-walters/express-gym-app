@@ -15,6 +15,7 @@ const ProfileSchema = new mongoose.Schema({
         name: {type: String, required: true},
         exercises: [{
             exerciseId: {type: mongoose.Schema.Types.ObjectId, ref: "Exercise"},
+            customisedName: String,
             sets: Number,
             reps: Number,
             weight: Number,
