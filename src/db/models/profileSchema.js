@@ -19,9 +19,9 @@ const ProfileSchema = new mongoose.Schema({
             sets: Number,
             reps: Number,
             weight: Number,
-            prevWeight: [Number],
+            prevWeights: [Number],
             distance: Number,
-            prevDistance: [Number]
+            prevDistances: [Number]
           },
         ],
       },

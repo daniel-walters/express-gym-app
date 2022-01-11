@@ -1,6 +1,7 @@
 import { app } from "../../src/app.js";
 import request from "supertest";
 import Event from "../../src/db/models/event";
+import Profile from '../../src/db/models/profileSchema.js'
 import { deleteEvent } from "../../src/Events/eventFunctions.js";
 
 // connect and use test db
@@ -14,13 +15,37 @@ afterAll(async () => {
   await mongoose.disconnect();
 });
 
+async function deleteProfile(uid) {
+    let profile = await Profile.deleteOne({ userId: uid });
+    return profile
+};
 
 describe("Event Routes", () => {
     let id;
+    let profileId, profile, uid;
+
+    beforeEach(async() => {
+        profile = await Profile.create({
+            userId: "bXLOgQo9HMcARXHXcy2sNEyVOM82",
+            firstName: "Test",
+            lastName: "User",
+            isStaff: true,
+            description: "Test user profile",
+            weight: 65,
+            checkedIn: false,
+            workouts: []
+        })
+        profile = JSON.parse(JSON.stringify(profile));
+        profileId = profile._id;
+        uid = profile.userId;
+    })
 
     afterEach(async () => {
         await deleteEvent(id);
-  });
+        await deleteProfile(uid);
+    });
+
+    
 
     test("GET /events -> should respond with statusCode 200 and get an array of all events objects with correct information", async () => {
         let event = await Event.create({
@@ -60,7 +85,9 @@ describe("Event Routes", () => {
         })
     })
 
-    test("GET /events/:id -> should respond with statusCode 201 and get correct event values", async () => {
+    test("GET /events/:id -> should respond with statusCode 201 and get correct event values, including createdBy populated from profile", async () => {
+        
+        
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a GET by id test",
@@ -70,7 +97,7 @@ describe("Event Routes", () => {
             spotsAvailable: 20,
             eventImage: null,
             category: 'Competition',
-            createdBy: "61be9b2af76e3e4a461b7040"
+            createdBy: profileId
         });
 
         event = JSON.parse(JSON.stringify(event));
@@ -87,7 +114,9 @@ describe("Event Routes", () => {
             expect(response.body.registeredUsers).toEqual(event.registeredUsers);
             expect(response.body.spotsAvailable).toBe(event.spotsAvailable);
             expect(response.body.category).toBe(event.category);
-            expect(response.body.createdBy).toBe(event.createdBy);
+            expect(response.body.createdBy._id).toBe(event.createdBy);
+            expect(response.body.createdBy.firstName).toBe('Test');
+            expect(response.body.createdBy.lastName).toBe('User');
         })
     })
 

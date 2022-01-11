@@ -14,7 +14,7 @@ const eventSchema = mongoose.Schema({
         required: true
     },
     registeredUsers: [{type: mongoose.SchemaTypes.ObjectId, ref: "Profile"}],
-    spotsAvailable: {type: Number, min: 1},
+    spotsAvailable: Number,
     eventImage: String,
     category: {
         type: String,

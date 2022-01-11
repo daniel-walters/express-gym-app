@@ -1,5 +1,5 @@
 import express from 'express';
-import { signUpUser, signInUser, resetPassword, forgotPassword } from './userFunctions.js';
+import { signUpUser, signInUser, resetPassword, forgotPassword, deleteUser } from './userFunctions.js';
 import { checkIfUserIsAMember, validatePasswordSecurity, checkPasswordConfirmation } from './userMiddleware.js';
 import Profile from '../db/models/profileSchema.js';
 import { checkIfUserIsAStaff } from '../Profiles/profileFunctions.js';
@@ -22,7 +22,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
 
     if (signUpResult.error) {
         console.log("Sign up failed, returning error to requester");
-        response.json(signUpResult);
+        response.json({error: signUpResult.error.message});
         return;
     }
 
@@ -30,7 +30,7 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
 
     if (signInResult.error) {
         console.log("Sign in failed, returning error to requester");
-        response.json(signInResult);
+        response.json({error: signUpResult.error.message});
         return;
     }
 
@@ -61,7 +61,7 @@ routes.post('/sign-in', async (request, response) => {
 
     if (signInResult.error) {
         console.log("Sign in failed, returning error to requester");
-        response.status(401).json(signInResult);
+        response.status(401).json({error: signUpResult.error.message});
         return;
     }
 
@@ -96,6 +96,16 @@ routes.post('/forgot-password', async (request, response) => {
         console.log(e);
         response.json({status: "failed"});
     });
+})
+
+routes.delete('/delete', async (request, response) => {
+    const {uid} = request.body;
+    deleteUser(uid).then(() => {
+        response.json({status: "deleted"});
+    }).catch((e) => {
+        console.log(e);
+        response.json({status: "failed"});
+    })
 })
 
 export default routes;
