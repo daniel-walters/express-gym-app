@@ -25,6 +25,8 @@ export async function updateProfileByUid(uid, details){
     }
     
     let updatedProfile = await Profile.findOneAndUpdate({userId: uid}, updatedProfileDetails, { returnOriginal: false })
+        .populate({path:'workouts.exercises.exerciseId', select: ['name']});
+    console.log("update profile returning", updatedProfile);
     return updatedProfile
 
 }
