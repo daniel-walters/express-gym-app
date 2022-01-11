@@ -61,7 +61,7 @@ routes.post('/sign-in', async (request, response) => {
 
     if (signInResult.error) {
         console.log("Sign in failed, returning error to requester");
-        response.status(401).json({error: signUpResult.error.message});
+        response.status(401).json({error: signInResult.error.message});
         return;
     }
 
