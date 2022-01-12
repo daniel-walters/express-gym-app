@@ -41,7 +41,8 @@ routes.post('/sign-up', signUpValidations, async (request, response) => {
         userId: userId,
         firstName: firstName,
         lastName: lastName,
-        isStaff: isStaff
+        isStaff: isStaff,
+        email: email
     }
     const profile = await Profile.create(profileDetails);
 
