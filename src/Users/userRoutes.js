@@ -66,7 +66,10 @@ routes.post('/sign-in', async (request, response) => {
         return;
     }
 
-    const profile = await Profile.findOne({userId: signInResult.uid});
+    const profile = await Profile.findOne({userId: signInResult.uid}).populate({
+        path: "workouts.exercises.exerciseId",
+        select: ["name"],
+      });
 
     response.status(200).json(profile);
 });
