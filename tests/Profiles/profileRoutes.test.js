@@ -31,6 +31,7 @@ describe("Profile Routes", () => {
             description: "Test user profile",
             weight: 65,
             checkedIn: false,
+            email: "jills-test@email.com",
             workouts: [
                 {
                   name: "Day 1 Workout",
@@ -94,6 +95,7 @@ describe("Profile Routes", () => {
                 expect(response.body.description).toBe(profile.description);
                 expect(response.body.weight).toBe(profile.weight);
                 expect(response.body.checkedIn).toBe(profile.checkedIn);
+                expect(response.body.email).toBe(profile.email);
                 expect(response.body.workouts).toEqual(profile.workouts);
             })
     })
@@ -108,6 +110,7 @@ describe("Profile Routes", () => {
             description: "Test user profile",
             weight: 65,
             checkedIn: false,
+            email: "jills-test@email.com",
             workouts: [
                 {
                   name: "Day 1 Amended Workout",
@@ -164,6 +167,7 @@ describe("Profile Routes", () => {
             expect(response.body.description).toBe(data.description);
             expect(response.body.weight).toBe(data.weight);
             expect(response.body.checkedIn).toBe(data.checkedIn);
+            expect(response.body.email).toBe(data.email);
 
             //check workout array in reponse
             for (let i = 0; i < response.body.workouts.length; i++) {
@@ -187,6 +191,8 @@ describe("Profile Routes", () => {
             expect(updatedData.weight).toBe(data.weight);
             expect(updatedData.description).toBe(data.description);
             expect(updatedData.checkedIn).toBe(data.checkedIn);
+            expect(updatedData.email).toBe(data.email);
+
 
 
              //check workout array in reponse
@@ -213,6 +219,7 @@ describe("Profile Routes", () => {
             description: "Test user profile",
             weight: 68,
             checkedIn: false,
+            email: "jills-test@email.com",
             workouts: [],
         }
         data = JSON.parse(JSON.stringify(data));
