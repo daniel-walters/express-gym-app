@@ -28,6 +28,7 @@ routes.put("/:uid", async (req, res) => {
             weight: req.body.weight,
             checkedIn: req.body.checkedIn,
             workouts: req.body.workouts,
+            email: req.body.email,
             photo: req.body.photo,
         };
 

@@ -37,14 +37,12 @@ describe("Profile Routes", () => {
                   name: "Day 1 Workout",
                   exercises: [
                     {
-                      exerciseId: "6188d363ee05ab76027e33cf",
                       sets: 4,
                       reps: 15,
                       weight: 100,
                       distance: 0,
                     },
                     {
-                        exerciseId: "61b817a39843d60b210b04eb",
                         sets: 3,
                         reps: 15,
                         weight: 120,
@@ -56,14 +54,12 @@ describe("Profile Routes", () => {
                     name: "Day 2 Workout",
                     exercises: [
                       {
-                        exerciseId: "6188d363ee55ab76027e33cf",
                         sets: 5,
                         reps: 20,
                         weight: 100,
                         distance: 0,
                       },
                       {
-                          exerciseId: "61b817a39844d60b210b04eb",
                           sets: 4,
                           reps: 15,
                           weight: 140,
@@ -95,6 +91,7 @@ describe("Profile Routes", () => {
                 expect(response.body.description).toBe(profile.description);
                 expect(response.body.weight).toBe(profile.weight);
                 expect(response.body.checkedIn).toBe(profile.checkedIn);
+                expect(response.body.prevWeights).toEqual(profile.prevWeights)
                 expect(response.body.email).toBe(profile.email);
                 expect(response.body.workouts).toEqual(profile.workouts);
             })
