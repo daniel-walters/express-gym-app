@@ -157,7 +157,6 @@ describe("Profile Routes", () => {
         .expect(200)
         .then(async (response) => {
             // Check the response
-            expect(response.body._id).toBe(profile._id);
             expect(response.body.firstName).toBe(data.firstName);
             expect(response.body.lastName).toBe(data.lastName);
             expect(response.body.isStaff).toBe(data.isStaff);
