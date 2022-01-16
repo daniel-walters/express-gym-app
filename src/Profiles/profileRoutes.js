@@ -5,7 +5,8 @@ const routes = express.Router();
 
 import {
     getProfileByUid, 
-    updateProfileByUid
+    updateProfileByUid,
+    getStaffProfiles
 } from './profileFunctions.js'
 
 routes.get("/:uid", async (req, res) => {
@@ -77,6 +78,17 @@ routes.put('/:uid/photo', uploadProfileImage.single("photo"), async (req, res) =
         });
     }
 
+})
+
+routes.get('/staff/all', async(req, res) => {
+    try {
+        let staffProfiles = await getStaffProfiles();
+        res.status(201).json(staffProfiles);
+    } catch (err) {
+        res.json({
+            error: err.message
+        });
+    }
 })
 
 export default routes;
