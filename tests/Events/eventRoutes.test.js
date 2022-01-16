@@ -12,7 +12,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await mongoose.disconnect();
+    await mongoose.disconnect();
 });
 
 async function deleteProfile(uid) {
@@ -33,6 +33,7 @@ describe("Event Routes", () => {
             description: "Test user profile",
             weight: 65,
             checkedIn: false,
+            email: "test@example.com",
             workouts: []
         })
         profile = JSON.parse(JSON.stringify(profile));
@@ -51,8 +52,8 @@ describe("Event Routes", () => {
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a test",
-            startTime: new Date(2021, 12, 13),
-            endTime:new Date(2021, 12, 14),
+            startTime: new Date(2022, 12, 13),
+            endTime:new Date(2022, 12, 14),
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 20,
             eventImage: null,
@@ -86,13 +87,11 @@ describe("Event Routes", () => {
     })
 
     test("GET /events/:id -> should respond with statusCode 201 and get correct event values, including createdBy populated from profile", async () => {
-        
-        
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a GET by id test",
-            startTime: new Date(2021, 12, 13),
-            endTime:new Date(2021, 12, 14),
+            startTime: new Date(2022, 12, 13),
+            endTime:new Date(2022, 12, 14),
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 20,
             eventImage: null,
@@ -124,8 +123,8 @@ describe("Event Routes", () => {
         let event = {
             name: "Test challenge", 
             description: "this is a POST request test",
-            startTime: new Date(2021, 12, 13),
-            endTime:new Date(2021, 12, 14),
+            startTime: new Date(2022, 12, 13),
+            endTime:new Date(2022, 12, 14),
             registeredUsers: null,
             spotsAvailable: 20,
             eventImage: null,
@@ -161,8 +160,8 @@ describe("Event Routes", () => {
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a PUT request test",
-            startTime: new Date(2021, 12, 13),
-            endTime:new Date(2021, 12, 14),
+            startTime: new Date(2022, 12, 13),
+            endTime:new Date(2022, 12, 14),
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 20,
             eventImage: null,
@@ -223,8 +222,8 @@ describe("Event Routes", () => {
         let event = await Event.create({
             name: "Test challenge", 
             description: "this is a Delete request test",
-            startTime: new Date(2021, 12, 13),
-            endTime:new Date(2021, 12, 14),
+            startTime: new Date(2022, 12, 13),
+            endTime:new Date(2022, 12, 14),
             registeredUsers:["6188d363ee05ab76027553cf", "6200d363ee05ab76027553ee"],
             spotsAvailable: 15,
             eventImage: null,

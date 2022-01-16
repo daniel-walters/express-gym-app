@@ -33,12 +33,13 @@ describe('POST /sign-up', () => {
                 firstName: "Test",
                 lastName: "User"
             });
-            uid = response.body.uid;
+            uid = response.body.userId;
         });
+        
 
         test('should respond with statusCode 201 and add user to database', async () => {  
             expect(response.statusCode).toBe(201);
-            expect(response.body.uid).toBeDefined();
+            expect(response.body.userId).toBeDefined();
         });
     });
 });
@@ -61,9 +62,10 @@ describe('POST /sign-in', () => {
             email: "testUser@test.com",
             password: "passWord1"
         });
+        console.log("the response for sign-in is:",response.body)
 
         expect(response.statusCode).toBe(200);
-        expect(response.body.uid).toBeDefined();
+        expect(response.body).toBeDefined();
     });
 
     test('should respond with status code 401 and error when given invalid credentials', async () => {

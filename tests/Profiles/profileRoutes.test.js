@@ -31,19 +31,18 @@ describe("Profile Routes", () => {
             description: "Test user profile",
             weight: 65,
             checkedIn: false,
+            email: "jills-test@email.com",
             workouts: [
                 {
                   name: "Day 1 Workout",
                   exercises: [
                     {
-                      exerciseId: "6188d363ee05ab76027e33cf",
                       sets: 4,
                       reps: 15,
                       weight: 100,
                       distance: 0,
                     },
                     {
-                        exerciseId: "61b817a39843d60b210b04eb",
                         sets: 3,
                         reps: 15,
                         weight: 120,
@@ -55,14 +54,12 @@ describe("Profile Routes", () => {
                     name: "Day 2 Workout",
                     exercises: [
                       {
-                        exerciseId: "6188d363ee55ab76027e33cf",
                         sets: 5,
                         reps: 20,
                         weight: 100,
                         distance: 0,
                       },
                       {
-                          exerciseId: "61b817a39844d60b210b04eb",
                           sets: 4,
                           reps: 15,
                           weight: 140,
@@ -94,6 +91,8 @@ describe("Profile Routes", () => {
                 expect(response.body.description).toBe(profile.description);
                 expect(response.body.weight).toBe(profile.weight);
                 expect(response.body.checkedIn).toBe(profile.checkedIn);
+                expect(response.body.prevWeights).toEqual(profile.prevWeights)
+                expect(response.body.email).toBe(profile.email);
                 expect(response.body.workouts).toEqual(profile.workouts);
             })
     })
@@ -108,6 +107,7 @@ describe("Profile Routes", () => {
             description: "Test user profile",
             weight: 65,
             checkedIn: false,
+            email: "jills-test@email.com",
             workouts: [
                 {
                   name: "Day 1 Amended Workout",
@@ -157,13 +157,13 @@ describe("Profile Routes", () => {
         .expect(200)
         .then(async (response) => {
             // Check the response
-            expect(response.body._id).toBe(profile._id);
             expect(response.body.firstName).toBe(data.firstName);
             expect(response.body.lastName).toBe(data.lastName);
             expect(response.body.isStaff).toBe(data.isStaff);
             expect(response.body.description).toBe(data.description);
             expect(response.body.weight).toBe(data.weight);
             expect(response.body.checkedIn).toBe(data.checkedIn);
+            expect(response.body.email).toBe(data.email);
 
             //check workout array in reponse
             for (let i = 0; i < response.body.workouts.length; i++) {
@@ -187,6 +187,8 @@ describe("Profile Routes", () => {
             expect(updatedData.weight).toBe(data.weight);
             expect(updatedData.description).toBe(data.description);
             expect(updatedData.checkedIn).toBe(data.checkedIn);
+            expect(updatedData.email).toBe(data.email);
+
 
 
              //check workout array in reponse
@@ -213,6 +215,7 @@ describe("Profile Routes", () => {
             description: "Test user profile",
             weight: 68,
             checkedIn: false,
+            email: "jills-test@email.com",
             workouts: [],
         }
         data = JSON.parse(JSON.stringify(data));
