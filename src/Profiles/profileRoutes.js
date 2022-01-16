@@ -1,4 +1,6 @@
 import express from "express";
+import uploadProfileImage from "./profileImageUpload.js";
+import { deleteFileFromLocal, uploadFile } from "../storage.js";
 const routes = express.Router();
 
 import {
@@ -50,6 +52,31 @@ routes.put("/:uid", async (req, res) => {
             error: err.message
         });
     }
+})
+
+routes.put('/:uid/photo', uploadProfileImage.single("photo"), async (req, res) => {
+    console.log("request", req)
+    let profilePrev = await getProfileByUid(req.params.uid);
+    console.log("profilePrev: ", profilePrev)
+    let prevImg = profilePrev.photo;
+    let url = "";
+
+    if (req.file) {
+        console.log("there a file")
+        url = await uploadFile(req.file.path, req.file.originalname).catch((error) => console.log(error));
+        deleteFileFromLocal(req.file.path);
+    }
+
+    try{
+        profilePrev.photo = url ? url : prevImg
+        await profilePrev.save({validateBeforeSave: false});
+        res.json(profilePrev)
+    } catch (err) {
+        res.json({
+            error: err.message
+        });
+    }
+
 })
 
 export default routes;

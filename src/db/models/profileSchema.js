@@ -29,7 +29,7 @@ const ProfileSchema = new mongoose.Schema({
     default: [],
   },
     email: {type: String, required: true},
-    photo: {type: String, required: false,default: null},
+    photo: {type: String, required: false, default: null},
 });
 
 export default mongoose.model("Profile", ProfileSchema);
