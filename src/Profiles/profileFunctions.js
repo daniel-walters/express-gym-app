@@ -38,3 +38,12 @@ export async function updateProfileByUid(uid, details) {
   console.log("update profile returning", updatedProfile);
   return updatedProfile;
 }
+
+export async function deleteProfile(uid) {
+  try {
+    const profile = await Profile.findOneAndDelete({userId: uid});
+    return profile;
+  } catch (e) {
+    return e;
+  }
+}

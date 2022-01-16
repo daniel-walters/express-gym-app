@@ -4,6 +4,7 @@ import { deleteFileFromLocal, uploadFile } from "../storage.js";
 const routes = express.Router();
 
 import {
+    deleteProfile,
     getProfileByUid, 
     updateProfileByUid
 } from './profileFunctions.js'
@@ -77,6 +78,17 @@ routes.put('/:uid/photo', uploadProfileImage.single("photo"), async (req, res) =
         });
     }
 
+})
+
+routes.delete('/:uid', async (req, res) => {
+    try {
+        const uid = req.params.uid;
+        const profile = await deleteProfile(uid);
+        console.log("deleting profile", profile);
+        res.json({profile});
+    } catch (e) {
+        res.json({error: e.message});
+    }
 })
 
 export default routes;
