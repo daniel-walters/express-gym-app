@@ -6,7 +6,8 @@ const routes = express.Router();
 import {
     deleteProfile,
     getProfileByUid, 
-    updateProfileByUid
+    updateProfileByUid,
+    getStaffProfiles
 } from './profileFunctions.js'
 
 routes.get("/:uid", async (req, res) => {
@@ -80,6 +81,7 @@ routes.put('/:uid/photo', uploadProfileImage.single("photo"), async (req, res) =
 
 })
 
+
 routes.delete('/:uid', async (req, res) => {
     try {
         const uid = req.params.uid;
@@ -88,6 +90,16 @@ routes.delete('/:uid', async (req, res) => {
         res.json({profile});
     } catch (e) {
         res.json({error: e.message});
+
+routes.get('/staff/all', async(req, res) => {
+    try {
+        let staffProfiles = await getStaffProfiles();
+        res.status(201).json(staffProfiles);
+    } catch (err) {
+        res.json({
+            error: err.message
+        });
+
     }
 })
 

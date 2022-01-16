@@ -16,6 +16,11 @@ export async function getProfileByUid(uid) {
   return profile;
 }
 
+export async function getStaffProfiles() {
+  const staffProfiles = await Profile.find({ isStaff: true })
+  return staffProfiles
+}
+
 export async function updateProfileByUid(uid, details) {
   const updatedProfileDetails = {
     userId: details.userId,
