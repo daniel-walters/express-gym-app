@@ -4,6 +4,7 @@ import { deleteFileFromLocal, uploadFile } from "../storage.js";
 const routes = express.Router();
 
 import {
+    deleteProfile,
     getProfileByUid, 
     updateProfileByUid,
     getStaffProfiles
@@ -80,6 +81,16 @@ routes.put('/:uid/photo', uploadProfileImage.single("photo"), async (req, res) =
 
 })
 
+
+routes.delete('/:uid', async (req, res) => {
+    try {
+        const uid = req.params.uid;
+        const profile = await deleteProfile(uid);
+        console.log("deleting profile", profile);
+        res.json({profile});
+    } catch (e) {
+        res.json({error: e.message});
+
 routes.get('/staff/all', async(req, res) => {
     try {
         let staffProfiles = await getStaffProfiles();
@@ -88,6 +99,7 @@ routes.get('/staff/all', async(req, res) => {
         res.json({
             error: err.message
         });
+
     }
 })
 
