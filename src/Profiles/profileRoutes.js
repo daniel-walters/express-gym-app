@@ -90,6 +90,8 @@ routes.delete('/:uid', async (req, res) => {
         res.json({profile});
     } catch (e) {
         res.json({error: e.message});
+    }
+})
 
 routes.get('/staff/all', async(req, res) => {
     try {
@@ -102,5 +104,6 @@ routes.get('/staff/all', async(req, res) => {
 
     }
 })
+
 
 export default routes;
