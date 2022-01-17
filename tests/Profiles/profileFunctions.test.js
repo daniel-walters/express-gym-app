@@ -1,5 +1,5 @@
 
-import { checkIfUserIsAStaff } from "../../src/Users/profileFunctions";
+import { checkIfUserIsAStaff } from "../../src/Profiles/profileFunctions.js";
 
 describe("checkIfUserIsAStaff", () => {
     test("returns a boolean", () => {

@@ -23,8 +23,8 @@ describe("Workouts Routes", () => {
 
   // test for get /workouts
   test("GET /workouts -> should respond with statusCode 200 and get an array of workouts", async () => {
-    let workout = await Workout.create({
-      name: "Monday workout",
+    const workout = await Workout.create({
+      name: "Day1 Workout",
       exercises: [
         {
           exercise_id: "6188d363ee05ab76027e33cf",
@@ -62,18 +62,14 @@ describe("Workouts Routes", () => {
         expect(response.body.length).toEqual(workouts.length);
 
         // Check the response data
-        expect(response.body[0].name).toBe(workout.name);
-        expect(response.body[0]._id).toBeTruthy();
-        expect(response.body[0].exercises.length).toBe(workout.exercises.length);
 
-        const exerciseLength = workout.exercises.length
-        for(let i = 0; i < exerciseLength - 1; i++) {
-          expect(response.body[0].exercises[i]._id).toBe(workout.exercises[i]._id);
-          expect(response.body[0].exercises[i].sets).toBe(workout.exercises[i].sets);
-          expect(response.body[0].exercises[i].weight).toBe(workout.exercises[i].weight);
-          expect(response.body[0].exercises[i].distance).toBe(workout.exercises[i].distance);
-        }
-        
+        expect(response.body[workouts.length - 1]._id).toBe(workout.id);
+        expect(response.body[workouts.length - 1].name).toBe(workout.name);
+        expect(response.body[workouts.length - 1].exercises[0].sets).toBe(workout.exercises[0].sets);
+        expect(response.body[workouts.length - 1].exercises[0].reps).toBe(workout.exercises[0].reps);
+        expect(response.body[workouts.length - 1].exercises[0].weight).toBe(workout.exercises[0].weight);
+        expect(response.body[workouts.length - 1].exercises[0].distance).toBe(workout.exercises[0].distance);
+
       });
   });
 
@@ -81,7 +77,9 @@ describe("Workouts Routes", () => {
   // test for get /workouts/:id
   test(" GET /workouts/:id -> should respond with statusCode 201 and get an correct id, sets, reps and weight", async () => {
     const workout = await Workout.create({
-      name: "Tuesday workout",
+
+      name: "Day1 Workout",
+
       exercises: [
         {
           exercise_id: "6188d363ee05ab76027553cf",
@@ -100,18 +98,21 @@ describe("Workouts Routes", () => {
       .then((response) => {
         expect(response.body.name).toBe(workout.name);
         expect(response.body._id).toBe(workout.id);
-        expect(response.body.exercises.exercise_id).toBe(workout.exercises.exercise_id);
-        expect(response.body.exercises.sets).toBe(workout.exercises.sets);
-        expect(response.body.exercises.reps).toBe(workout.exercises.reps);
-        expect(response.body.exercises.weight).toBe(workout.exercises.weight);
-        expect(response.body.exercises.distance).toBe(workout.exercises.distance);
+
+        expect(response.body.name).toBe(workout.name);
+        expect(response.body.exercises[0].sets).toBe(workout.exercises[0].sets);
+        expect(response.body.exercises[0].reps).toBe(workout.exercises[0].reps);
+        expect(response.body.exercises[0].weight).toBe(workout.exercises[0].weight);
+        expect(response.body.exercises[0].distance).toBe(workout.exercises[0].distance);
+
       });
   });
 
   // test for post /workouts
   test("POST/workouts -> should respond with statusCode 201 and add new workout with correct sets, reps and weight value", async () => {
     const newWorkout = {
-      name: "Wednesday workout",
+      name: "Day1 Workout",
+
       exercises: [
         {
           exercise_id: "6188d363ee05ab76027e44cf",
@@ -130,28 +131,31 @@ describe("Workouts Routes", () => {
       .then(async (response) => {
         // Check the response
         expect(response.body._id).toBeTruthy();
-        expect(response.body.exercises.exercise_id).toBe(newWorkout.exercises.exercise_id);
-        expect(response.body.exercises.sets).toBe(newWorkout.exercises.sets);
-        expect(response.body.exercises.reps).toBe(newWorkout.exercises.reps);
-        expect(response.body.exercises.weight).toBe(newWorkout.exercises.weight);
-        expect(response.body.exercises.distance).toBe(newWorkout.exercises.distance);
+
+        expect(response.body.name).toBe(newWorkout.name);
+        expect(response.body.exercises[0].sets).toBe(newWorkout.exercises[0].sets);
+        expect(response.body.exercises[0].reps).toBe(newWorkout.exercises[0].reps);
+        expect(response.body.exercises[0].weight).toBe(newWorkout.exercises[0].weight);
+
         id = response.body._id;
 
         // Check the data in the database
         const workout = await Workout.findOne({ _id: response.body._id });
         expect(workout).toBeTruthy();
-        expect(workout.exercises.exercise_id).toBe(newWorkout.exercises.exercise_id);
-        expect(workout.exercises.sets).toBe(newWorkout.exercises.sets);
-        expect(workout.exercises.reps).toBe(newWorkout.exercises.reps);
-        expect(workout.exercises.weight).toBe(newWorkout.exercises.weight);
-        expect(workout.exercises.distance).toBe(newWorkout.exercises.distance);
+
+        expect(workout.name).toBe(newWorkout.name);
+        expect(workout.exercises[0].sets).toBe(newWorkout.exercises[0].sets);
+        expect(workout.exercises[0].reps).toBe(newWorkout.exercises[0].reps);
+        expect(workout.exercises[0].weight).toBe(newWorkout.exercises[0].weight);
+
       });
   });
 
   // test for put /workouts:id
   test("PUT /workouts/:id -> should respond with statusCode 200 and update workout with correct sets, reps and weight value", async () => {
     const workout = await Workout.create({
-      name: "Thursday workout",
+      name: "Day1 Workout",
+
       exercises: [
         {
           exercise_id: "6188d363ee05ab76027e44cc",
@@ -164,7 +168,8 @@ describe("Workouts Routes", () => {
     });
 
     const data = {
-      name: "Updated thursday workout",
+      name: "Day1 Workout",
+
       exercises: [
         {
           sets: 3,
@@ -184,27 +189,33 @@ describe("Workouts Routes", () => {
       .then(async (response) => {
         // Check the response
         expect(response.body._id).toBe(workout.id);
-        expect(response.body.exercises.exercise_id).toBe(workout.exercises.exercise_id);
-        expect(response.body.exercises.sets).toBe(data.exercises.sets);
-        expect(response.body.exercises.reps).toBe(data.exercises.reps);
-        expect(response.body.exercises.weight).toBe(data.exercises.weight);
-        expect(response.body.exercises.distance).toBe(data.exercises.distance);
+
+        expect(response.body.name).toBe(workout.name);
+        expect(response.body.exercises[0].sets).toBe(data.exercises[0].sets);
+        expect(response.body.exercises[0].reps).toBe(data.exercises[0].reps);
+        expect(response.body.exercises[0].weight).toBe(data.exercises[0].weight);
+        expect(response.body.exercises[0].distance).toBe(data.exercises[0].distance);
+
 
         // Check the data in the database
         const newWorkout = await Workout.findOne({ _id: response.body._id });
         expect(newWorkout).toBeTruthy();
         expect(newWorkout.name).toBe(data.name);
-        expect(newWorkout.exercises.sets).toBe(data.exercises.sets);
-        expect(newWorkout.exercises.reps).toBe(data.exercises.reps);
-        expect(newWorkout.exercises.weight).toBe(data.exercises.weight);
-        expect(newWorkout.exercises.distance).toBe(data.exercises.distance);
+
+        expect(newWorkout.exercises[0].sets).toBe(data.exercises[0].sets);
+        expect(newWorkout.exercises[0].reps).toBe(data.exercises[0].reps);
+        expect(newWorkout.exercises[0].weight).toBe(data.exercises[0].weight);
+        expect(newWorkout.exercises[0].distance).toBe(data.exercises[0].distance);
+
       });
   });
 
   // test for delete /workouts/:id
   test("DELETE /workouts/:id", async () => {
     const workout = await Workout.create({
-      name: "Friday workout",
+
+      name: "Day1 Workout",
+
       exercises: [
         {
           exercise_id: "6188d363ee05ab76027e33cf",

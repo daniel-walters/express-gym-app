@@ -10,12 +10,12 @@ export function checkIfUserIsAMember(request, response, next) {
     const { membershipNumber } = request.body;
     const member = externalMembers.find((member) => {
         const { membershipNumber: extMemNum } = member;
-        return (extMemNum === membershipNumber);
+        return (extMemNum == membershipNumber);
     });
     if (member) {
         next();
     } else {
-        response.status(401).json({error: "Cannot find membership number in our database"});
+        response.json({error: "Cannot find membership number in our database"});
     }
 }
 
@@ -30,7 +30,7 @@ export function checkPasswordConfirmation(request, response, next) {
     if (password === passwordConfirm) {
         next();
     } else {
-        response.status(401).json({error: "Passwords need to be the same"});
+        response.json({error: "Passwords need to be the same"});
     }
 }
 
@@ -42,11 +42,11 @@ export function checkPasswordConfirmation(request, response, next) {
  */
 export function validatePasswordSecurity(request, response, next) {
     const { password } = request.body;
-    const matcher = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/g;
+    const matcher = /^(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,}$/g;
 
     if (matcher.test(password)) {
         next();
     } else {
-        response.status(401).json({error: "Password must contain at least one lowercase letter, uppercase letter, number, and must not contain any special characters"});
+        response.json({error: "Password must contain a mix of letters and numbers and be at least 6 characters long."});
     }
 }

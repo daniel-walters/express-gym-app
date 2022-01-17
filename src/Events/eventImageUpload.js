@@ -3,7 +3,7 @@ import multer from "multer";
 const storage = multer.diskStorage({
     // image will be stored in public/reportImages folder 
     destination: (req, file, callback)=>{
-        callback(null, "./public/reportImages/");
+        callback(null, "./public/eventImages/");
     },
     //define the name of uploaded image
     filename: (req, file, callback)=>{
@@ -21,7 +21,7 @@ const fileFilter = (req, file, callback) =>{
 }
 
 //use this instance as a middleware in route
-const uploadImage = multer({
+const uploadEventImage = multer({
     storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5
@@ -29,4 +29,4 @@ const uploadImage = multer({
     fileFilter: fileFilter
     })
 
-export default uploadImage;
+export default uploadEventImage;

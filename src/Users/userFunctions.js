@@ -1,5 +1,5 @@
 import firebaseAdmin from 'firebase-admin';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 export function initializeAppClient() {
@@ -61,4 +61,32 @@ export async function deleteUser(uid) {
         .catch((error) => {
             console.log(error);
         });
+}
+
+//Returns the current users uid or returns false if user isnt signed in
+export async function getCurrentUserID() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    return user ? user.uid : false;
+}
+
+export async function resetPassword() {
+    const auth = getAuth();
+    
+    sendPasswordResetEmail(auth, auth.currentUser.email).then(() => {
+        console.log("password reset email sent");
+    }).catch((e) => {
+        console.log("ERROR:", e);
+    });
+}
+
+export async function forgotPassword(email) {
+    const auth = getAuth();
+
+    sendPasswordResetEmail(auth, email).then(() => {
+        console.log("password reset sent");
+    }).catch((e) => {
+        console.log("ERROR:", e);
+    })
 }

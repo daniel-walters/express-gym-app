@@ -1,10 +1,11 @@
 import mongoose from "../index.js";
 
 const workoutSchema = new mongoose.Schema({
-    name: {type: String, required: true},
+
+    name: {type: String, required: true },
     exercises: [
         {
-            exercise_id: mongoose.SchemaTypes.ObjectId,
+            exerciseId: mongoose.SchemaTypes.ObjectId,
             sets: Number,
             reps: Number,
             weight: Number,

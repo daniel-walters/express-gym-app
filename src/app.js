@@ -7,15 +7,35 @@ import express from 'express';
 
 export const app = express();
 
+//import cors
+import cors from 'cors';
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001', 'https://gymappdevelopment.netlify.app'];
+const corsOptions = {
+    origin: function (origin, callback) {
+      if ( !origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
+  }
+
+// app.use(cors());
+app.use(cors(corsOptions));
+
 //import initializeApp and initialize with admin credentials
 import firebaseAdmin from 'firebase-admin';
 firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.cert(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS))
+    credential: firebaseAdmin.credential.cert(JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS)),
+    storageBucket: "gs://gym-app-t3a2.appspot.com"
 });
 
 //import initializeAppClient and run function
 import { initializeAppClient } from './Users/userFunctions.js';
 initializeAppClient();
+
+//export storage bucket
+export const storage = firebaseAdmin.storage().bucket();
 
 //set server to receieve json and form-data
 app.use(express.json());
@@ -42,3 +62,15 @@ app.use('/exercises', exerciseRoutes);
 //import and use report routes
 import reportRoutes from './Reports/reportRoutes.js';
 app.use('/reports', reportRoutes);
+
+//import and use event routes
+import eventRoutes from './Events/eventRoutes.js';
+app.use('/events', eventRoutes);
+
+//import and use profile routes
+import profileRoutes from './Profiles/profileRoutes.js';
+app.use('/profiles', profileRoutes);
+
+//import and use checkin routes
+import checkInRoutes from './CheckIn/checkInRoutes.js';
+app.use('/checkin', checkInRoutes);

@@ -29,10 +29,9 @@ describe("Report Routes", () => {
 
   test("GET /reports -> should respond with statusCode 200 and get all reports", async () => {
     let report = await Report.create({
-      type: "faulty equipment",
+      type: "Faulty Equipment",
+      userId:"6CdKUz1NouR9gG4BPqlsePv2V0e2",
       description: "I break the barbell",
-      resolved: false,
-      reportDate: new Date(),
       reportImage: null,
     });
     // convert to JSON object
@@ -52,8 +51,10 @@ describe("Report Routes", () => {
         // Check the response data
         expect(response.body[reports.length - 1]._id).toBe(id);
         expect(response.body[reports.length - 1].type).toBe(report.type);
+        expect(response.body[reports.length - 1].userId).toBe(report.userId);
         expect(response.body[reports.length - 1].description).toBe(report.description);
         expect(response.body[reports.length - 1].resolved).toBe(report.resolved);
+        expect(response.body[reports.length - 1].resolvedBy).toBe(report.resolvedBy);
         expect(response.body[reports.length - 1].reportDate).toBe(report.reportDate);
         expect(response.body[reports.length - 1].reportImage).toBe(report.reportImage);
       });
@@ -61,10 +62,9 @@ describe("Report Routes", () => {
 
   test("GET /reports/:id -> should respond with statusCode 201 and get correct values", async () => {
     let report = await Report.create({
-      type: "faulty equipment",
+      type: "Faulty Equipment",
       description: "test for get by id request",
-      resolved: false,
-      reportDate: new Date(),
+      userId:"6CdKUz1NouR9gG4BPqlsePv2V0e2",
       reportImage: null,
     });
     id = report._id;
@@ -84,12 +84,11 @@ describe("Report Routes", () => {
       });
   });
 
-  test("POST/reports -> should respond with statusCode 201 and add new reports with id, type, description, resolved, reportImage", async () => {
+  test("POST/reports -> should respond with statusCode 201 and add new report with id, type, description, resolved, reportImage", async () => {
     let report = {
-      type: "faulty equipment",
+      type: "Faulty Equipment",
       description: "test for post request",
-      resolved: false,
-      reportDate: new Date(),
+      userId:"6CdKUz1NouR9gG4BPqlsePv2V0e2",
       reportImage: null,
     };
 
@@ -114,19 +113,20 @@ describe("Report Routes", () => {
 
     test("PUT /report/:id -> should respond with statusCode 200 and update existing repot", async () => {
       let report = await Report.create({
-        type: "faulty equipment",
+        type: "Faulty Equipment",
+        userId:"6CdKUz1NouR9gG4BPqlsePv2V0e2",
         description: "test for put request",
-        resolved: false,
-        reportDate: new Date(),
         reportImage: null
       });
       id = report._id;
       report = JSON.parse(JSON.stringify(report));
 
       let data = {
-        type: "updated faulty equipment",
+        type: "Unsocial Behaviour",
         description: "updated description",
+        userId:"6CdKUz1NouR9gG4BPqlsePv2V0e2",
         resolved: true,
+        resolvedBy:"123",
         reportDate: new Date(),
         reportImage: null
       };
@@ -140,8 +140,10 @@ describe("Report Routes", () => {
           // Check the response
           expect(response.body._id).toBe(report._id);
           expect(response.body.type).toBe(data.type);
+          expect(response.body.userId).toBe(report.userId);
           expect(response.body.description).toBe(data.description);
           expect(response.body.resolved).toBe(data.resolved);
+          expect(response.body.resolvedBy).toBe(data.resolvedBy);
           expect(response.body.reportDate).toBe(data.reportDate);
           expect(response.body.reportImage).toBe(data.reportImage);
 
@@ -150,8 +152,10 @@ describe("Report Routes", () => {
           updatedReport = JSON.parse(JSON.stringify(updatedReport));
           expect(updatedReport._id).toBeTruthy();
           expect(updatedReport.type).toBe(data.type);
+          expect(updatedReport.userId).toBe(data.userId);
           expect(updatedReport.description).toBe(data.description);
           expect(updatedReport.resolved).toBe(data.resolved);
+          expect(updatedReport.resolvedBy).toBe(data.resolvedBy);
           expect(updatedReport.reportDate).toBe(data.reportDate);
           expect(updatedReport.reportImage).toBe(data.reportImage);
         });
@@ -159,10 +163,9 @@ describe("Report Routes", () => {
 
   test("DELETE /reports/:id -> should delete the report with correct id", async () => {
     const report = await Report.create({
-      type: "faulty equipment",
+      type: "Unsocial Behaviour",
+      userId:"6CdKUz1NouR9gG4BPqlsePv2V0e2",
       description: "test for delete request",
-      resolved: false,
-      reportDate: new Date(),
       reportImage: null,
     });
 
